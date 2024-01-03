@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <!-- link bs css -->
+    <link rel="stylesheet" href="/resourcesT/bootstrap_5.3.1/css/bootstrap.min.css">
+    <!-- link bs js file -->
+    <script src="resourcesT/bootstrap_5.3.1/js/bootstrap.bundle.min.js"></script>
+    <!-- link fontawesome -->
+    <link rel="stylesheet" href="./resourcesT/fontawesome_web/css/all.css">
+    <!-- jquery -->
+    <script src="resourcesT/js/jquery.js"></script>
+    <!-- icon -->
+    <link rel="icon" href="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg" />
+    <!-- button css -->
+    <link rel="stylesheet" href="resourcesT/style/button.css">
+    <!-- common css -->
+    <link rel="stylesheet" href="resourcesT/style/common.css">
+    <!-- employee css -->
+    <link rel="stylesheet" href="resourcesT/style/employee.css">
+    <!-- employee css -->
+    <link rel="stylesheet" href="resourcesT/style/emp.css">
+    <!-- link datatable css -->
+    <link rel="stylesheet" href="resourcesT/dataTables-1.13.6/css/jquery.dataTables.css">
+    <!-- link datatable js -->
+    <!-- <link rel="stylesheet" href="resourcesT/dataTables-1.13.6/js/jquery.dataTables.js"> -->
+    <!-- tabel function -->
+    <script src="resourcesT/js/tableFunction.js"></script>
+    <!-- validation js -->
+    <script src="resourcesT/js/validation.js"></script>
+    <!-- link common js file -->
+    <script src="resourcesT/js/commonFunction.js"></script>
+    <!-- link employee js file -->
+    <script src="controllerjs/userModalNew.js"></script>
+    <!-- Include jQuery and DataTables scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+</head>
+
+<body>
+    <nav th:replace="~{ topNavBar :: topnavbarfragment}"></nav>
+    <!-- side bar -->
+    <div th:replace="~{ sideBar :: sidebarfragment}"></div>
+    <div class="container">
+
+        <div class="row main mt-5">
+            <div class="col mt-1" style="height: 500px;">
+                <div class="container-fluid mt-1 p-4 ">
+                    <!-- title -->
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h2><i class="fa-solid fa-user "></i>User Management </h2>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- form button start -->
+                <div class="row col-2 " style="padding-left: 15px;">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#empForm">
+                        Form
+                    </button>
+                </div>
+                <!-- form modal start -->
+                <div class="modal fade" id="empForm" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">User Form</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    data-bs-target="#staticBackdrop"></button>
+                            </div>
+                            <div class="modal-body" data-bs-backdrop="static" data-bs-keyboard="false">
+                                <!-- Emp form start -->
+                                <div class="container-fluid">
+                                    <!-- title -->
+                                    <div class="row" style="height: 100px;">
+                                        <div class="col-12 text-center ">
+                                            <h2 class=""><i class="fa-solid fa-user "></i>User Management </h2>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <form onsubmit="return false" id="formEmployee">
+
+
+                                    <div class="p-5 pt-0 fw-bold">
+
+                                        <div class="row main justify-content-md-center ">
+                                            <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
+                                            <div class="container ">
+                                                <!-- Required field -->
+                                                <div class="row" style="margin-left: 10px;">
+
+                                                    <div>
+                                                        <b>
+                                                            <p class="fw-bold fs-5 fw-bold">
+                                                                <span class="text-danger">
+
+                                                                    * Required
+                                                                </span>
+                                                            </p>
+                                                        </b>
+                                                    </div>
+                                                </div>
+                                                <!-- Required field end -->
+                                                <!-- Employee start -->
+                                                <div class="row">
+                                                    <div class="mb-3 row " style="height: 40px;">
+                                                        <label for="selectEmployee"
+                                                            class="col-lg-2 col-form-label fs-5 fw-bold">Employee</label>
+                                                        <div class="col-lg-10 ">
+                                                            <select id="selectEmployee"
+                                                                class="form-select form-select-lg" required
+                                                                aria-label="Default select example"
+                                                                onchange="selectDFieldValidation(selectEmployee,'', 'user', 'employee_id'); generateUserEmail()">
+
+                                                            </select>
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <!-- Employee end -->
+                                                <!-- username start -->
+                                                <div class="row">
+                                                    <div class="mb-3 row " style="height: 40px;">
+                                                        <label for="inputUsername"
+                                                            class="col-lg-2 col-form-label fs-5 fw-bold">
+
+                                                            Username
+                                                            <i class="fa-solid fa-question" data-bs-toggle="tooltip"
+                                                                data-bs-title="Enter UserName"
+                                                                data-bs-placement="bottom"></i>
+                                                        </label>
+                                                        <div class="col-lg-10 ">
+                                                            <input type="text" class="form-control form-control-lg "
+                                                                placeholder="Enter Username" id="inputUsername" required
+                                                                onkeyup="textValidation(inputUsername, '^[A-Z][a-z]{2,30}$', 'user', 'username')">
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <!-- username end -->
+                                                <!-- password start -->
+                                                <div class="row">
+                                                    <div class="mb-3 row " style="height: 40px;">
+                                                        <label for="inputPassword"
+                                                            class="col-lg-2 col-form-label fs-5 fw-bold">Password</label>
+                                                        <div class="col-lg-10 ">
+                                                            <input type="password" class="form-control form-control-lg "
+                                                                placeholder="Enter Password" id="inputPassword" required
+                                                                onkeyup="textValidation(inputPassword, '^[A-Z][a-z]{2,30}$', 'user', 'password')">
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <!-- password end -->
+                                                <!-- password re start -->
+                                                <div class="row">
+                                                    <div class="mb-3 row " style="height: 40px;">
+                                                        <label for="inputRePassword"
+                                                            class="col-lg-2 col-form-label fs-5 fw-bold">Re-Password</label>
+                                                        <div class="col-lg-10 ">
+                                                            <input type="password" class="form-control form-control-lg "
+                                                                placeholder="Enter Re-Password" id="inputRePassword"
+                                                                required onkeyup="passwordValidation()">
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <!-- password re end -->
+                                                <!-- email start -->
+                                                <div class="row">
+                                                    <div class="mb-3 row " style="height: 40px;">
+                                                        <label for="inputEmail"
+                                                            class="col-lg-2 col-form-label fs-5 fw-bold">Email</label>
+                                                        <div class="col-lg-10 ">
+                                                            <input type="email" class="form-control form-control-lg "
+                                                                placeholder="Enter Email" id="inputEmail" required
+                                                                onkeyup="textValidation(inputEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$', 'user', 'email')">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- email end -->
+                                                <!-- role start -->
+                                                <div class="row">
+                                                    <div class="mb-3 row" style="height: 40px;">
+                                                        <label for="inputRole"
+                                                            class="col-lg-2 col-form-label fs-5 fw-bold">Role</label>
+                                                        <div class="col-lg-10 " id="inputRole">
+                                                            <div class="col-lg-4 form-check">
+                                                                <input class="form-check-input" type="checkbox" value=""
+                                                                    id="selectManager">
+                                                                <label class="form-check-label" for="selectManager">
+                                                                    Manager
+                                                                </label>
+
+                                                            </div>
+                                                            <div class="col-lg-4 form-check">
+                                                                <input class="form-check-input" type="checkbox" value=""
+                                                                    id="selectCashier">
+                                                                <label class="form-check-label" for="selectCashier">
+                                                                    Cashier
+                                                                </label>
+
+                                                            </div>
+                                                            <div class="col-lg-4 form-check">
+                                                                <input class="form-check-input" type="checkbox" value=""
+                                                                    id="selectSManager">
+                                                                <label class="form-check-label" for="selectSManager">
+                                                                    Store-Manager
+                                                                </label>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!-- role end -->
+                                                <!-- status start -->
+                                                <div class="row mt-4">
+                                                    <div class="mb-3 mt-3 row ml-2" style="height: 40px;">
+                                                        <label for="inputStatus1"
+                                                            class="col-lg-2 col-form-label fs-5 fw-bold">Status</label>
+                                                        <div class="col-lg-10 form-check mt-2" id="inputStatus1">
+
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                id="inputStatus" checked onchange="checkBoxValidator(inputStatus,'','user', 
+                                                                'status',true, false, inputStatusLbl,'User Account is active ',
+                                                                 'User Account is not-active')">
+                                                            <!-- (fieldId, pattern, object, property, trueValue,falseValue, labelId, labelTrueValue,labelFalseValue) -->
+                                                            <label class="form-check-label" for="inputStatus"
+                                                                id="inputStatusLbl">
+                                                            </label>
+
+
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <!-- status end -->
+
+
+
+                                                <!-- button group start -->
+                                                <div class="row mt-4 mb-3"
+                                                    style="display: flex;justify-content: space-between;">
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-lg btn-info"><i
+                                                                class="fa-solid fa-broom"></i>Clear</button>
+                                                    </div>
+                                                    <div class="col"
+                                                        style="display: flex; justify-content: flex-end;gap:10px">
+                                                        <button type="button" class="btn btn-lg btn-warning"
+                                                            style="border-radius: 30px;" onclick="buttonUserUpdate()"><i
+                                                                class="fa-solid fa-pen-to-square"></i>Update</button>
+                                                        <button type="button" class="btn btn-lg btn-success"
+                                                            style="border-radius: 30px;" onclick="buttonUserAdd()"><i
+                                                                class="fa-solid fa-plus"></i>Add</button>
+                                                    </div>
+                                                </div>
+                                                <!-- button group end -->
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                                <!-- Emp form end -->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- form modal end -->
+                <!-- form button end -->
+                <!-- table start -->
+                <table class="table table-bordered mt-3" id="tableUser">
+                    <thead class="table-dark">
+                        <th>#</th>
+                        <th>Employee</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+
+                        <th>Button</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <!-- table end -->
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
