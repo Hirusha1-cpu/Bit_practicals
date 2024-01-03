@@ -132,7 +132,7 @@ public class UserController {
         User extUsername = dao.getUserByUsername(user.getUsername());
 
         if (extUsername != null && !user.getId().equals(extUsername.getId())) {
-            return "Update not completed : User name already exist";
+            return "Update not completed : User name already exist..!";
         }
         try {
             // if(!user.getPassword().equals("")){
