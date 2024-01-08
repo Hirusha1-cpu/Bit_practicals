@@ -101,5 +101,15 @@ public class Item {
     @Column(name="delete_user")
     private Integer delete_user;
 
+    public Item(Integer id,String itemcode,String itemname,BigDecimal salesprice,BigDecimal purchaseprice , ItemStatus itemstatus_id){
+        this.id = id;
+        this.itemcode = itemcode;
+        this.itemname = itemname;
+        this.salesprice = salesprice;
+        this.purchaseprice = purchaseprice;
+        this.itemstatus_id = itemstatus_id;
+      
+    }
+
 
 }
