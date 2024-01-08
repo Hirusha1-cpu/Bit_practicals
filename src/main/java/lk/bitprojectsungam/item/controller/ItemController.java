@@ -1,0 +1,36 @@
+package lk.bitprojectsungam.item.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import java.util.*;
+import lk.bitprojectsungam.item.dao.ItemDao;
+import lk.bitprojectsungam.item.entity.Item;
+import lk.bitprojectsungam.privilege.controller.PrivilegeController;
+
+@RestController
+@RequestMapping
+public class ItemController {
+    @Autowired
+    private ItemDao itemDao;
+
+    @Autowired
+    private PrivilegeController privilegeController;
+
+    @GetMapping(value = "/item/findall", produces = "application/json" )
+    public List<Item> getAllItems() {
+               // get user authentication object
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "Item");
+        if (!logUserPrivi.get("select")) {
+            return null;
+        }
+        return itemDao.findAll(Sort.by(Direction.DESC, "id"));
+    }
+    
+}
