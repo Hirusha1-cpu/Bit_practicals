@@ -92,8 +92,6 @@ public class EmployeeController {
                 return "Save not completed :Inserted NIC is Already Existing";
             }
 
-
-
             employee.setAddeddatetime(LocalDateTime.now().toLocalDate());//set current date time
             String nextEmpNo = dao.getNextEmpNo();
             if (nextEmpNo.equals("") || nextEmpNo.equals(null)) {
@@ -132,14 +130,14 @@ public class EmployeeController {
             //dao.delete(employee);
             //dao.delete(dao.gerReferenceById(employee.getId()));
 
-            // extemp.setEmployeestatus_id(empStatusDao.getReferenceById(3));
-            // extemp.setDeletedatetime(LocalDateTime.now().toLocalDate());
-            // dao.save(extemp);
-            // User extUser = userDao.getUserByEmployeeId(extemp.getId());
-            // if(extUser != null){
-            //     extUser.setStatus(false);
-            //     userDao.save(extUser);
-            // }
+            extemp.setEmployeestatus_id(empStatusDao.getReferenceById(3));
+            extemp.setDeletedatetime(LocalDateTime.now().toLocalDate());
+            dao.save(extemp);
+            User extUser = userDao.getUserByEmployeeId(extemp.getId());
+            if(extUser != null){
+                extUser.setStatus(false);
+                userDao.save(extUser);
+            }
             return "OK";
         } catch (Exception e) {
         

@@ -1,6 +1,7 @@
 //create function for fill data intop table
 
-const fillDataIntoTable = (tableId, dataList, propertyList,editButtonFunction,deleteButtonFunction,printButtonFunction, buttonVisibility = true) => {
+const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, deleteButtonFunction, printButtonFunction,
+    buttonVisibility = true, privilegeOb = null) => {
     //create variable for store body
     const tableBody = tableId.children[1];
     tableBody.innerHTML = '';
@@ -17,9 +18,9 @@ const fillDataIntoTable = (tableId, dataList, propertyList,editButtonFunction,de
             const td = document.createElement('td');
             //  td.innerText = item.number;
             if (itemOb.dataType == 'string') {
-                if(dataList[index][itemOb.property] == null){
-                    td.innerText ="-"
-                }else{
+                if (dataList[index][itemOb.property] == null) {
+                    td.innerText = "-"
+                } else {
                     td.innerHTML = dataList[index][itemOb.property]
 
                 }
@@ -29,9 +30,9 @@ const fillDataIntoTable = (tableId, dataList, propertyList,editButtonFunction,de
             }
             if (itemOb.dataType == 'boolean') {
                 td.innerHTML = dataList[index][itemOb.property]
-                if(td.innerHTML == 'true') {
+                if (td.innerHTML == 'true') {
                     td.innerHTML = 'grant'
-                }else{
+                } else {
                     td.innerHTML = 'not-grant'
                 }
             }
@@ -46,9 +47,9 @@ const fillDataIntoTable = (tableId, dataList, propertyList,editButtonFunction,de
         btnEdit.innerHTML = '<i class="fa-solid fa-edit "></i>Edit'
         btnEdit.onclick = () => {
             console.log('edit', item.id, index);
-            editButtonFunction(item,index)
-            
-        
+            editButtonFunction(item, index)
+
+
         }
 
         const btnDelete = document.createElement('button');
@@ -57,7 +58,7 @@ const fillDataIntoTable = (tableId, dataList, propertyList,editButtonFunction,de
         btnDelete.onclick = (index) => {
             // console.log('delete',item.id);
             // deleteEmp(index);
-            deleteButtonFunction(item,index);
+            deleteButtonFunction(item, index);
         }
 
         const deleteEmp = (rowindex) => {
@@ -84,14 +85,17 @@ const fillDataIntoTable = (tableId, dataList, propertyList,editButtonFunction,de
         }
         if (buttonVisibility) {
 
-            tdButton.appendChild(btnEdit);
-            tdButton.appendChild(btnDelete);
+            if (privilegeOb != null && privilegeOb.update) {
+                tdButton.appendChild(btnEdit);
+            }
+            if (privilegeOb != null && privilegeOb.delete) {
+                tdButton.appendChild(btnDelete);
+            }
+
             tdButton.appendChild(buttonPrint);
             tr.appendChild(tdButton);
 
         }
-
-
         tableBody.appendChild(tr);
     })
 

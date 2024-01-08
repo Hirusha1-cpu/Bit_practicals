@@ -6,6 +6,7 @@ window.addEventListener('load', () => {
     //call form refreash function
     refreshEmployeeForm()
 })
+let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/PRIVILEGE")
 
 //create function for refreash table record
 const refreshEmployeeTable = () => {
@@ -26,7 +27,7 @@ const refreshEmployeeTable = () => {
 
     //call fill data into table function
     // fillDataIntoTable(tableId,dataList, display property List, refillFunctionName, deleteFunctionName, printFunctionName,buttonVisibility)
-    fillDataIntoTable(tablePrivilege, privileges, displayProperty, refillPrivilegeForm, deleteButtonFunction, printEmployee, true)
+    fillDataIntoTable(tablePrivilege, privileges, displayProperty, refillPrivilegeForm, deleteButtonFunction, printEmployee, true,userPrivilege)
     // Initialize DataTables on the tableEmployee
     $(document).ready(function () {
         $('#tablePrivilege').DataTable({

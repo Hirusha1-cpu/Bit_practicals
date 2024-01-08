@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -67,6 +68,17 @@ public class PrivilegeController {
         }
     }
 
+    //create get mapping for get privilege by logged user module
+    @GetMapping(value = "/privilege/bylogedusermodule/{modulename}", produces = "application/json")
+    public HashMap<String, Boolean> getPrivilegeByLoggedUserModule(@PathVariable("modulename") String modulename){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return getPrivilegeByUserModule(auth.getName(), modulename);
+    }
+
+    
+
+
+    //define function for get privilege by user module
     public HashMap<String, Boolean> getPrivilegeByUserModule(String username, String modulename) {
         HashMap<String, Boolean> userPrivilege = new HashMap<String, Boolean>();
         if (username.equals("Admin")) {

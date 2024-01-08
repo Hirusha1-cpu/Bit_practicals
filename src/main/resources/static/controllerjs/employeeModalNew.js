@@ -12,9 +12,11 @@ window.addEventListener('load', () => {
 
     //call table refresh function
     refreshEmployeeTable();
+
     //call form refreash function
     refreshEmployeeForm()
 })
+let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/EMPLOYEE")
 
 //create function for refreash table record
 const refreshEmployeeTable = () => {
@@ -106,7 +108,20 @@ const refreshEmployeeTable = () => {
 
     //call fill data into table function
     // fillDataIntoTable(tableId,dataList, display property List, refillFunctionName, deleteFunctionName, printFunctionName,buttonVisibility)
-    fillDataIntoTable(tableEmployee, employees, displayProperty, refillEmployeeForm, deleteButtonFunction, printEmployee, true)
+    fillDataIntoTable(tableEmployee, employees, displayProperty, refillEmployeeForm,
+         deleteButtonFunction, printEmployee, true, userPrivilege)
+
+         //disable delete button
+         employees.forEach((element,index) => {
+            if (element.employeestatus_id.name == "Deleted") {
+                if (userPrivilege.delete) {
+                    tableEmployee.children[1].children[index].children[9].children[1].disabled = "disabled";
+                    
+                }
+                
+            }
+        });
+
     // Initialize DataTables on the tableEmployee
     $(document).ready(function () {
         $('#tableEmployee').DataTable({
@@ -115,31 +130,7 @@ const refreshEmployeeTable = () => {
         });
     });
 
-    // // full name validation
-    // inputFullName1.addEventListener('keyup', () => {
-    //     // employee.fullname = this.value;
-    //     textValidation(inputFullName1, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'employee', 'fullname')
-    // }
-    // )
-    // //landphone validation
-    // inputLand.addEventListener('keyup', () => {
-    //     textValidation(inputLand, '^[0][12345689][0-9]{8}$');
-    // }
-    // )
-    // // email validation
-    // inputEmail.addEventListener('keyup', () => {
-    //     textValidation(inputEmail, '^[A-Za-z0-9]{6,20}[@][a-z]{3,10}[.][a-z]{2,3}$');
-    // }
-    // )
-    // // nic validation
-    // inputNIC.addEventListener('keyup', () => {
-    //     textValidation(inputNIC, '^(([0-9]{9}[VvXxSs])|([0-9]{12}))$');
-    // }
-    // )
-    // //select validatin
-    // selectDesignation.addEventListener('change', () => {
-    //     selectFieldValidation(selectDesignation, '')
-    // })
+
 
 }
 
@@ -197,6 +188,21 @@ const refreshEmployeeForm = () => {
     inputNIC.style.border = '1px solid #ced4da'
     inputDob.classList.remove("is-valid");
     inputDob.style.border = '1px solid #ced4da'
+
+    let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/Employee")
+    console.log(userPrivilege);
+
+    btnEmpUpd.disabled = true;
+    // btnEmpUpd.style.cursor = "not-allowed";
+    $("btnEmpUpd").css("cursor","not-allowed");
+    if (userPrivilege.insert) {
+        btnEmpAdd.disabled = false
+        $("btnEmpAdd").css("cursor","pointer");
+    }else{
+
+        btnEmpAdd.disabled = true
+        $("btnEmpAdd").css("cursor","not-allowed");
+    }
 }
 
 const getEmpDesign = (rowOb) => {
@@ -429,8 +435,20 @@ const refillEmployeeForm = (item, index) => {
     //select emp status
     fillDataIntoSelect(selectEStatus, "Select Status", Empstatuses, 'name',employee.employeestatus_id.name)
 
+    btnEmpUpd.disabled = "";
+    // btnEmpUpd.style.cursor = "not-allowed";
+    $("btnEmpUpd").css("cursor","pointer");
+    btnEmpAdd.disabled = true;
+    $("btnEmpAdd").css("cursor","not-allowed");
 
-    //set valid color for element
+    let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/Employee")
+    if (userPrivilege.update) {
+        btnEmpUpd.disabled = "";
+        $("btnEmpUpd").css("cursor","pointer");
+    }else{
+        btnEmpUpd.disabled = "disabled";
+        $("btnEmpUpd").css("cursor","not-allowed");
+    }
 
 }
 //define method for check updates
