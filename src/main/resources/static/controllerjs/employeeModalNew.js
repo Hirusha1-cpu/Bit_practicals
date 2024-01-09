@@ -509,5 +509,17 @@ const buttonEmpUpdate =()=>{
 
 
 const printEmployee = (rowindex) => {
+    newwindow = window.open()
+
+    newwindow.document.write(
+        "<head>"+
+        "<link rel='stylesheet' href='resourcesT/bootstrap-5.2.3/css/bootstrap.min.css'></head><body>"
+        +
+        tableEmployee.outerHTML +
+        "</body>"
+    )
+    setTimeout(function(){
+        newwindow.print();
+    },1000)
 
 }

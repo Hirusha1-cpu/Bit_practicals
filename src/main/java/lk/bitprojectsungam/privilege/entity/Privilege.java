@@ -43,10 +43,6 @@ public class Privilege {
     @NotNull
     private Boolean del;
 
-    @Column(name = "status")
-    @NotNull
-    private Boolean status;
-
     @ManyToOne // relationship format
     @JoinColumn(name = "role_id", referencedColumnName = "id") //join column condition
     private Role role_id ;

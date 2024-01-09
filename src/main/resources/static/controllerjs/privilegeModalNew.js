@@ -233,8 +233,22 @@ const checkUpdate = () => {
 
         if (user.roles.length != olduser.roles.length) {
             updates = updates + "Roles are changed"
-        } else if (user.roles.length == olduser.roles.length) (
+        } else if (user.roles.length == olduser.roles.length) {
 
+            // let equalcount = 0;
+            // user.roles.forEach(element => {
+            //     olduser.roles.forEach(element1 => {
+            //         if (element.id.name == element1.id.name) {
+            //            equalcount++;
+            //             break
+            //         }
+            //     })
+            // })
+            // if(equalcount !== user.roles.length) {
+            //  updates = updates + element.name, " are changed"
+            // }
+
+           
             user.roles.forEach(element => {
                 olduser.roles.forEach(element1 => {
                     if (element.id != element1.id) {
@@ -242,7 +256,8 @@ const checkUpdate = () => {
                     }
                 })
             })
-        )
+
+        }
     }
 
     if (user.username != olduser.username) {
@@ -294,7 +309,18 @@ const buttonEmpUpdate = () => {
 }
 
 const printEmployee = (rowindex) => {
+    newwindow = window.open()
 
+    newwindow.document.write(
+        "<head>"+
+        "<link rel='stylesheet' href='resourcesT/bootstrap-5.2.3/css/bootstrap.min.css'></head><body>"
+        +
+        tableEmployeePrint.outerHTML +
+        "</body>"
+    )
+    setTimeout(function(){
+        newwindow.print();
+    },1000)
 }
 
 const generateModuleList = () => {
