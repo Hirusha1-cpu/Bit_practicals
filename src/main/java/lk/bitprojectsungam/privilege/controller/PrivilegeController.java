@@ -52,9 +52,7 @@ public class PrivilegeController {
         try {
             // hard delete
             // dao.delete(employee);
-            // dao.delete(dao.gerReferenceById(employee.getId()));
-            // privilege.setStatus(false);
-            // dao.save(privilege);
+        
             extemp.setSel(false);
             extemp.setInst(false);
             extemp.setUpd(false);

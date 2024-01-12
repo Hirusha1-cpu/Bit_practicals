@@ -85,6 +85,9 @@ const getModule = (rowOb) => {
     if (rowOb.module_id.name == 'USER') {
         return '<p class="deleted-status">' + rowOb.module_id.name + '</p>';
     }
+    if (rowOb.module_id.name == 'Item') {
+        return '<p class="resign-status">' + rowOb.module_id.name + '</p>';
+    }
     // let userRoles = '';
     // rowOb.roles.forEach(element => {
     //     userRoles = userRoles + element.name + ","
