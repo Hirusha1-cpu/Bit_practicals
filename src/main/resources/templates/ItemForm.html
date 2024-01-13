@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{ head :: headFragment}">
+
+</head>
+
+
+<body>
+    <!-- top navbar -->
+    <nav th:replace="~{ topNavBar :: topnavbarfragment}"></nav>
+
+    <!-- side bar -->
+    <div th:replace="~{ sideBar :: sidebarfragment}"></div>
+
+    <!-- Ui content area -->
+    <div class="container ">
+
+        <div class="row main mt-5">
+            <div class="col mt-1" style="height: 500px;">
+                <div class="container-fluid mt-1 p-4 ">
+                    <!-- title -->
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h2><i class="fa-solid fa-user "></i>Item Management </h2>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- form button start -->
+                <div class="row col-2 " style="padding-left: 15px;">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#empForm">
+                        Form
+                    </button>
+                </div>
+                <!-- form modal start -->
+                <div class="modal fade" id="empForm" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Employee Form</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                    data-bs-target="#staticBackdrop"></button>
+                            </div>
+                            <div class="modal-body" data-bs-backdrop="static" data-bs-keyboard="false">
+                                <!-- Emp form start -->
+                                <div class="container-fluid">
+                                    <!-- title -->
+                                    <div class="row" style="height: 100px;">
+                                        <div class="col-12 text-center ">
+                                            <h2 class=""><i class="fa-solid fa-user "></i>Item Management </h2>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <form onsubmit="return false" id="formEmployee">
+
+
+                                    <div class="p-5 pt-0 fw-bold">
+
+                                        <div class="row main justify-content-md-center ">
+                                            <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
+                                            <div class="container ">
+                                                <!-- Required field -->
+                                                <div class="row" style="margin-left: 10px;">
+
+                                                    <div>
+                                                        <b>
+                                                            <p class="fw-bold fs-5 fw-bold">
+                                                                <span class="text-danger">
+
+                                                                    * Required
+                                                                </span>
+                                                            </p>
+                                                        </b>
+                                                    </div>
+                                                </div>
+                                                <!-- Required field end -->
+                                                <!-- full item name start -->
+                                                <div class="row">
+                                                    <div class="mb-3 row " style="height: 40px;">
+                                                        <label for="inputFullName1"
+                                                            class="col-lg-2 col-form-label fs-5 fw-bold">Item
+                                                            Name</label>
+                                                        <div class="col-lg-10 ">
+                                                            <input type="text" class="form-control form-control-lg "
+                                                                placeholder="Enter Full Name" id="inputFullItemName1"
+                                                                required
+                                                                onkeyup="textValidation(inputFullItemName1, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'itemname')">
+
+
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <!-- fullname end -->
+                                                <!-- brand / category/ subcategory -->
+                                                <div class="row">
+                                                    <!-- designation start -->
+                                                    <div class="col">
+                                                        <label for="inputDesignation"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Brand</label>
+                                                        <select id="selectDesignation"
+                                                            class="form-select form-select-lg"
+                                                            aria-label="Default select example"
+                                                            onchange="selectDFieldValidation(selectBrand,'', 'item', 'brand_id')">
+                                                            <!-- <option selected disabled value="">Select Designation
+                                                                </option>
+                                                                <option value="cashier">Cashier</option>
+                                                                <option value="manager">Manager</option> -->
+
+                                                        </select>
+                                                    </div>
+                                                    <!-- designation end -->
+                                                    <!-- civil status start -->
+                                                    <div class="col">
+                                                        <label for="inputCivilStatus"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Category</label>
+                                                        <select class="form-select form-select-lg"
+                                                            aria-label="Default select example" id="selectStatus"
+                                                            onchange="selectFieldValidation(selectCategory,'', 'item', 'category_id'); filterSubCategory()" >
+                                                            <option selected>Select Civil Status</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- civil status end -->
+                                                    <!-- emp status start -->
+                                                    <div class="col">
+                                                        <label for="inputDesignation"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Sub
+                                                            Category</label>
+                                                        <select class="form-select form-select-lg"
+                                                            aria-label="Default select example" id="selectEStatus"
+                                                            onchange="selectDFieldValidation(selectSubCategory,'', 'item', 'subcategory_id')">
+                                                            <!-- <option selected>Select Employee Status</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option> -->
+                                                        </select>
+                                                    </div>
+                                                    <!-- emp status end -->
+                                                </div>
+
+                                                <!-- Unit Size / Unit type/ package type -->
+                                                <div class="row">
+                                                    <!-- designation start -->
+                                                    <div class="col">
+                                                        <label for="textItemSize"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Item Size</label>
+                                                        <input type="text" class="form-control form-control-lg "
+                                                            placeholder="Enter Full Name" id="textUnitSize" required
+                                                            onkeyup="textValidation(textItemSize, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'itemsize')">
+                                                    </div>
+                                                    <!-- designation end -->
+                                                    <!-- civil status start -->
+                                                    <div class="col">
+                                                        <label for="selectUnitType"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Unit
+                                                            Type</label>
+                                                        <select class="form-select form-select-lg"
+                                                            aria-label="Default select example" id="selectUnitType"
+                                                            onchange="selectFieldValidation(selectUnitType,'', 'item', 'unittype_id')">
+                                                            <option selected>Select Civil Status</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
+                                                    <!-- civil status end -->
+                                                    <!-- emp status start -->
+                                                    <div class="col">
+                                                        <label for="selectPackageType"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Package
+                                                            Type</label>
+                                                        <select class="form-select form-select-lg"
+                                                            aria-label="Default select example" id="selectPackageType"
+                                                            onchange="selectDFieldValidation(selectPackageType,'', 'item', 'packagetype_id')">
+                                                            <!-- <option selected>Select Employee Status</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option> -->
+                                                        </select>
+                                                    </div>
+                                                    <!-- emp status end -->
+                                                </div>
+                                                <!-- sales/ purchase -->
+                                                <div class="row">
+                                                    <!-- sales start -->
+                                                    <div class="col">
+                                                        <label for="inputSale"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Sales Price</label>
+                                                        <div class="col-lg-10 ">
+                                                            <input placeholder="Enter Sales Price" type="text"
+                                                                class="form-control form-control-lg" id="inputSale"
+                                                                onkeyup="textValidation(inputMobNo,'^[0][7][1245678][0-9]{7}$', 'item', 'salesprice');"
+                                                                required>
+                                                        </div>
+                                                    </div>
+                                                    <!-- sales end -->
+                                                    <!-- purchase start -->
+                                                    <div class="col">
+                                                        <label for="inputPurchase"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Purchase Price</label>
+                                                        <!-- <div class="col-lg-10">
+                                                                <input placeholder="Enter Land No" type="text" class="form-control form-control-lg" id="inputLandNo">
+                                                            </div> -->
+                                                        <div class="input-group mb-3 input-group-lg ">
+                                                            <span class="input-group-text" id="basic-addon1"><i
+                                                                    class="fa-sharp fa-solid fa-phone-volume"></i></span>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter Purchase Price" aria-label="Username"
+                                                                aria-describedby="basic-addon1" id="inputPurchase"
+                                                                onkeyup="textValidation(inputLand, '^[0][12345689][0-9]{8}$', 'item', 'purchaseprice');">
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- purchase end -->
+
+                                                </div>
+                                                <!-- photo/ note -->
+                                                <div class="row ">
+                                       
+                                                    <!-- note start -->
+                                                    <div class="col ">
+
+                                                        <div class="input-group">
+                                                            <span class="input-group-text fs-5 fw-bold">Note:<span
+                                                                    class="text-danger">(Optional)</span></span>
+                                                            <textarea class="form-control" aria-label="With textarea">
+
+                                                                </textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- note end -->
+                                                </div>
+                                                <!-- rop, roq , item status-->
+                                                <div class="row">
+                                                    <!-- roq start -->
+                                                    <div class="col">
+                                                        <label for="text"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">RoQ</label>
+                                                            <input type="text" class="form-control form-control-lg "
+                                                            placeholder="Enter RoQ" id="textRoq" required
+                                                            onkeyup="textValidation(textRoq, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'roq')">
+
+                                                    </div>
+                                                    <!-- roq end -->
+                                                    <!-- rop start -->
+                                                    <div class="col">
+                                                        <label for="text"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">RoP</label>
+                                                            <input type="text" class="form-control form-control-lg "
+                                                            placeholder="Enter Rop" id="textRoq" required
+                                                            onkeyup="textValidation(textRop, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'rop')">
+
+                                                    </div>
+                                                    <!-- rop end -->
+                                                    <!-- emp status start -->
+                                                    <div class="col">
+                                                        <label for="selectItemStatus"
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Item
+                                                            Status</label>
+                                                        <select class="form-select form-select-lg"
+                                                            aria-label="Default select example" id="selectItemStatus"
+                                                            onchange="selectDFieldValidation(selectItemStatus,'', 'item', 'itemstatus_id')">
+                                                            <!-- <option selected>Select Employee Status</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option> -->
+                                                        </select>
+                                                    </div>
+                                                    <!-- emp status end -->
+                                                </div>
+                                                <!-- button group start -->
+                                                <div class="row mt-4 mb-3"
+                                                    style="display: flex;justify-content: space-between;">
+                                                    <div class="col">
+                                                        <button id="btnEmpclear" type="button"
+                                                            class="btn btn-lg btn-info"><i
+                                                                class="fa-solid fa-broom"></i>Clear</button>
+                                                    </div>
+                                                    <div class="col"
+                                                        style="display: flex; justify-content: flex-end;gap:10px">
+                                                        <button id="btnEmpUpd" type="button"
+                                                            class="btn btn-lg btn-warning" style="border-radius: 30px;"
+                                                            onclick="buttonEmpUpdate()"><i
+                                                                class="fa-solid fa-pen-to-square"></i>Update</button>
+                                                        <button id="btnEmpAdd" type="button"
+                                                            class="btn btn-lg btn-success" style="border-radius: 30px;"
+                                                            onclick="buttonEmpAdd()"><i
+                                                                class="fa-solid fa-plus"></i>Add</button>
+                                                    </div>
+                                                </div>
+                                                <!-- button group end -->
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </form>
+                                <!-- Emp form end -->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- form modal end -->
+                <!-- form button end -->
+
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

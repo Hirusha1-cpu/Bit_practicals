@@ -7,6 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.util.*;
 import lk.bitprojectsungam.item.dao.ItemDao;
 import lk.bitprojectsungam.item.entity.Item;
@@ -31,5 +33,15 @@ public class ItemController {
         }
         return itemDao.findAll();
     }
+
+     @RequestMapping(value = "/item")
+    public ModelAndView employeeUI() {
+
+        ModelAndView viewEmp = new ModelAndView();
+    
+        viewEmp.setViewName("ItemForm.html");
+        return viewEmp;
+    }
+
     
 }
