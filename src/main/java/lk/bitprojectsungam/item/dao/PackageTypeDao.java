@@ -1,6 +1,10 @@
 package lk.bitprojectsungam.item.dao;
 
-public interface PackageTypeDao {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import lk.bitprojectsungam.item.entity.PackageType;
+
+public interface PackageTypeDao extends JpaRepository<PackageType, Integer> {
 
     
 }

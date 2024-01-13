@@ -7,7 +7,9 @@ import lk.bitprojectsungam.item.dao.SubCategoryDao;
 import lk.bitprojectsungam.item.entity.SubCategory;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+@RequestMapping
 @RestController
 public class SubCategoryController {
     @Autowired
@@ -18,4 +20,5 @@ public class SubCategoryController {
         return dao.findAll();
     }
     
+  
 }

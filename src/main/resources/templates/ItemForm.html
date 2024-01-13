@@ -40,7 +40,7 @@
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Employee Form</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Item Form</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                     data-bs-target="#staticBackdrop"></button>
                             </div>
@@ -56,7 +56,7 @@
                                     </div>
 
                                 </div>
-                                <form onsubmit="return false" id="formEmployee">
+                                <form onsubmit="return false" id="formItem">
 
 
                                     <div class="p-5 pt-0 fw-bold">
@@ -87,7 +87,7 @@
                                                             Name</label>
                                                         <div class="col-lg-10 ">
                                                             <input type="text" class="form-control form-control-lg "
-                                                                placeholder="Enter Full Name" id="inputFullItemName1"
+                                                                placeholder="Enter Item Name" id="inputFullItemName1"
                                                                 required
                                                                 onkeyup="textValidation(inputFullItemName1, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'itemname')">
 
@@ -100,11 +100,11 @@
                                                 <!-- fullname end -->
                                                 <!-- brand / category/ subcategory -->
                                                 <div class="row">
-                                                    <!-- designation start -->
+                                                    <!-- brand start -->
                                                     <div class="col">
-                                                        <label for="inputDesignation"
+                                                        <label for="selectBrand"
                                                             class="col-sm-2 col-form-label fs-5 fw-bold">Brand</label>
-                                                        <select id="selectDesignation"
+                                                        <select id="selectBrand"
                                                             class="form-select form-select-lg"
                                                             aria-label="Default select example"
                                                             onchange="selectDFieldValidation(selectBrand,'', 'item', 'brand_id')">
@@ -115,26 +115,25 @@
 
                                                         </select>
                                                     </div>
-                                                    <!-- designation end -->
-                                                    <!-- civil status start -->
+                                                    <!--  brand end -->
+                                                    <!-- category start -->
                                                     <div class="col">
-                                                        <label for="inputCivilStatus"
+                                                        <label for="selectCategory"
                                                             class="col-sm-2 col-form-label fs-5 fw-bold">Category</label>
                                                         <select class="form-select form-select-lg"
-                                                            aria-label="Default select example" id="selectStatus"
+                                                            aria-label="Default select example" id="selectCategory"
                                                             onchange="selectFieldValidation(selectCategory,'', 'item', 'category_id'); filterSubCategory()" >
-                                                            <option selected>Select Civil Status</option>
+                                                            <option selected>Select Category</option>
                                                             <option value="1">One</option>
                                                             <option value="2">Two</option>
                                                             <option value="3">Three</option>
                                                         </select>
                                                     </div>
-                                                    <!-- civil status end -->
-                                                    <!-- emp status start -->
+                                                    <!-- category end -->
+                                                    <!-- subcategory start -->
                                                     <div class="col">
                                                         <label for="inputDesignation"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Sub
-                                                            Category</label>
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">SubCategory</label>
                                                         <select class="form-select form-select-lg"
                                                             aria-label="Default select example" id="selectEStatus"
                                                             onchange="selectDFieldValidation(selectSubCategory,'', 'item', 'subcategory_id')">
@@ -144,40 +143,38 @@
                                                                 <option value="3">Three</option> -->
                                                         </select>
                                                     </div>
-                                                    <!-- emp status end -->
+                                                    <!-- subcategory end -->
                                                 </div>
 
                                                 <!-- Unit Size / Unit type/ package type -->
                                                 <div class="row">
-                                                    <!-- designation start -->
+                                                    <!-- Unit start -->
                                                     <div class="col">
                                                         <label for="textItemSize"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Item Size</label>
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">ItemSize</label>
                                                         <input type="text" class="form-control form-control-lg "
-                                                            placeholder="Enter Full Name" id="textUnitSize" required
+                                                            placeholder="Enter Item Size" id="textUnitSize" required
                                                             onkeyup="textValidation(textItemSize, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'itemsize')">
                                                     </div>
-                                                    <!-- designation end -->
-                                                    <!-- civil status start -->
+                                                    <!-- Unit end -->
+                                                    <!-- Unit Type start -->
                                                     <div class="col">
                                                         <label for="selectUnitType"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Unit
-                                                            Type</label>
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">UnitType</label>
                                                         <select class="form-select form-select-lg"
                                                             aria-label="Default select example" id="selectUnitType"
                                                             onchange="selectFieldValidation(selectUnitType,'', 'item', 'unittype_id')">
-                                                            <option selected>Select Civil Status</option>
+                                                            <option selected>Select Unit Type</option>
                                                             <option value="1">One</option>
                                                             <option value="2">Two</option>
                                                             <option value="3">Three</option>
                                                         </select>
                                                     </div>
-                                                    <!-- civil status end -->
-                                                    <!-- emp status start -->
+                                                    <!-- Unit Type end -->
+                                                    <!-- Package Type start -->
                                                     <div class="col">
                                                         <label for="selectPackageType"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Package
-                                                            Type</label>
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">PackageType</label>
                                                         <select class="form-select form-select-lg"
                                                             aria-label="Default select example" id="selectPackageType"
                                                             onchange="selectDFieldValidation(selectPackageType,'', 'item', 'packagetype_id')">
@@ -187,18 +184,18 @@
                                                                 <option value="3">Three</option> -->
                                                         </select>
                                                     </div>
-                                                    <!-- emp status end -->
+                                                    <!-- Package Type end -->
                                                 </div>
                                                 <!-- sales/ purchase -->
                                                 <div class="row">
                                                     <!-- sales start -->
                                                     <div class="col">
                                                         <label for="inputSale"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Sales Price</label>
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">SalesPrice</label>
                                                         <div class="col-lg-10 ">
                                                             <input placeholder="Enter Sales Price" type="text"
                                                                 class="form-control form-control-lg" id="inputSale"
-                                                                onkeyup="textValidation(inputMobNo,'^[0][7][1245678][0-9]{7}$', 'item', 'salesprice');"
+                                                                onkeyup="textValidation(inputSale,'^[0][7][1245678][0-9]{7}$', 'item', 'salesprice');"
                                                                 required>
                                                         </div>
                                                     </div>
@@ -206,7 +203,7 @@
                                                     <!-- purchase start -->
                                                     <div class="col">
                                                         <label for="inputPurchase"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Purchase Price</label>
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">PurchasePrice</label>
                                                         <!-- <div class="col-lg-10">
                                                                 <input placeholder="Enter Land No" type="text" class="form-control form-control-lg" id="inputLandNo">
                                                             </div> -->
@@ -216,7 +213,7 @@
                                                             <input type="text" class="form-control"
                                                                 placeholder="Enter Purchase Price" aria-label="Username"
                                                                 aria-describedby="basic-addon1" id="inputPurchase"
-                                                                onkeyup="textValidation(inputLand, '^[0][12345689][0-9]{8}$', 'item', 'purchaseprice');">
+                                                                onkeyup="textValidation(inputPurchase, '^[0][12345689][0-9]{8}$', 'item', 'purchaseprice');">
                                                         </div>
 
                                                     </div>
@@ -265,8 +262,7 @@
                                                     <!-- emp status start -->
                                                     <div class="col">
                                                         <label for="selectItemStatus"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Item
-                                                            Status</label>
+                                                            class="col-sm-2 col-form-label fs-5 fw-bold">ItemStatus</label>
                                                         <select class="form-select form-select-lg"
                                                             aria-label="Default select example" id="selectItemStatus"
                                                             onchange="selectDFieldValidation(selectItemStatus,'', 'item', 'itemstatus_id')">

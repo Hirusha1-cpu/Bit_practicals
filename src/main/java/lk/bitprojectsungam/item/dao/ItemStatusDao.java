@@ -1,6 +1,11 @@
 package lk.bitprojectsungam.item.dao;
 
-public interface ItemStatusDao {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+import lk.bitprojectsungam.item.entity.ItemStatus;
+
+public interface ItemStatusDao extends JpaRepository<ItemStatus, Integer> {
 
     
 } 

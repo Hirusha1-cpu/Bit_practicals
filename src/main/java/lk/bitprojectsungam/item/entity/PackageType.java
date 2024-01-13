@@ -1,5 +1,7 @@
 package lk.bitprojectsungam.item.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,4 +29,9 @@ public class PackageType {
     @Column(name = "name")
     @NotNull
     private String name ;
+
+
+    public List<PackageType> findAll() {
+        return null;
+    }
 }

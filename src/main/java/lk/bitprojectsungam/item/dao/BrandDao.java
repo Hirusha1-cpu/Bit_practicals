@@ -1,6 +1,11 @@
 package lk.bitprojectsungam.item.dao;
 
-public interface BrandDao {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import lk.bitprojectsungam.item.entity.Brand;
+
+
+public interface BrandDao extends JpaRepository<Brand, Integer> {
 
     
 } 
