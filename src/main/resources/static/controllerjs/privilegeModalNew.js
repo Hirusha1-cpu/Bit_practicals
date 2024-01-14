@@ -13,7 +13,6 @@ const refreshEmployeeTable = () => {
 
     privileges = ajaxGetRequest('/privilege/findall')
 
-
     const displayProperty = [
         { property: getEmpRole, dataType: 'function' },
         { property: getModule, dataType: 'function' },
@@ -116,7 +115,6 @@ const getEmpRole = (rowOb) => {
     // return userRoles;
 }
 
-
 const deleteButtonFunction = (rowOb, rowindex) => {
     const userConfirm = confirm('Are you sure you want to delete');
     if (userConfirm) {
@@ -137,7 +135,6 @@ const deleteButtonFunction = (rowOb, rowindex) => {
         refreshEmployeeTable();
     }
 }
-
 
 //create function for check form error
 //need to check all required property values
@@ -251,8 +248,7 @@ const checkUpdate = () => {
             //  updates = updates + element.name, " are changed"
             // }
 
-           
-            user.roles.forEach(element => {
+                user.roles.forEach(element => {
                 olduser.roles.forEach(element1 => {
                     if (element.id != element1.id) {
                         updates = updates + element.name, " are changed"

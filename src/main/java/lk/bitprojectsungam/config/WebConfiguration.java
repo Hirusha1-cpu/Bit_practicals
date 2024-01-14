@@ -16,7 +16,7 @@ public class WebConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(auth -> {
             auth
-                    .requestMatchers("/resources/**").permitAll()
+                    .requestMatchers("/resourcesT/**").permitAll()
                     .requestMatchers("/createadmin").permitAll()
                     .requestMatchers("/login").permitAll()
                     .requestMatchers("/error").permitAll()
