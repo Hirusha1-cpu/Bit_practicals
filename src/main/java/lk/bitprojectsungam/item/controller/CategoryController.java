@@ -20,7 +20,7 @@ public class CategoryController {
         return dao.findAll();
     }
 
-    @GetMapping(value = "/category/listbycategory/{brandid}", produces = "application/json")
+    @GetMapping(value = "/category/listbybrand/{brandid}", produces = "application/json")
     public List<Category> getCategoryByBrand(@PathVariable("brandid") Integer brandid) {
         return dao.getByBrand(brandid);
     }

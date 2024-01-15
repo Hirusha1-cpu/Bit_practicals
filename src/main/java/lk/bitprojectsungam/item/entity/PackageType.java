@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class PackageType {
         @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
+    // @NotNull
     @Column(name = "id", unique = true)
     private Integer id;
 

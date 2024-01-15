@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class ItemStatus {
         @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
+    // @NotNull
     @Column(name = "id", unique = true)
     private Integer id;
 

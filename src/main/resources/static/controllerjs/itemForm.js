@@ -33,26 +33,48 @@ const itemFormRefresh = () =>{
 //define function for filter subcategory by category
 const filterSubCategory = () =>{
     console.log(JSON.parse(selectCategory.value));
-    subcategoriesByCategory = ajaxGetRequest("/subcategory/listbycategory?categoryid ="+JSON.parse(selectCategory.value).id);
+
+    subcategoriesByCategory = ajaxGetRequest("/subcategory/listbycategory?categoryid="+JSON.parse(selectCategory.value).id);
     fillDataIntoSelect(selectSubCategory,"select sub category",subcategoriesByCategory, "name", "")
+
+    // brandsByCategory =ajaxGetRequest("/brand/listbycategory?brandid="+JSON.parse(selectCategory.value).id);
+    // fillDataIntoSelect(selectBrand,"select brand",brandsByCategory, "name","");
 
 }
 
 //define function for filter category by brand
 const filterCategory = () =>{
-    console.log(JSON.parse(selectCategory.value));
+    // console.log(JSON.parse(selectCategory.value));
     categoriesByBrand = ajaxGetRequest("/category/listbybrand/"+JSON.parse(selectBrand.value).id);
     fillDataIntoSelect(selectCategory,"select category",categoriesByBrand, "name", "")
+
+    // if(JSON.parse(selectCategory.value).name == "Rice"){
+    //     open some ui components
+    // }
 
 }
 
 //generate item name
 const generateItemName = () =>{
-    if(selectBrand.value != "" && selectSubCategory.value != "" && textItemSize.value != "" && selectUnitType.value != "" && selectPackageType.value != ""){
-        inputFullItemName1.value= JSON.parse(selectBrand.value).name + " " + JSON.parse(selectSubCategory.value).name + " " + JSON.parse(textItemSize.value).name + " "
-        +JSON.parse(selectUnitType.value).name +" " +JSON.parse(selectPackageType.value).name;
+    if(
+    selectBrand.value != "" && 
+    selectSubCategory.value != "" && 
+    textItemSize.value != "" && 
+    selectUnitType.value != "" && 
+    selectPackageType.value != "")
+    {
+
+        inputFullItemName1.value = 
+        JSON.parse(selectBrand.value).name + " " + 
+        JSON.parse(selectSubCategory.value).name + " " + 
+        textItemSize.value + " "
+        +JSON.parse(selectUnitType.value).name +" " +
+        JSON.parse(selectPackageType.value).name;
 
         item.itemname = inputFullItemName1.value;
         inputFullItemName1.style.border = "2px solid green"
     }
 }
+
+
+
