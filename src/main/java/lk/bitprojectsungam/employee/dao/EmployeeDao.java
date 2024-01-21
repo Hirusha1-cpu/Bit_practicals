@@ -24,6 +24,7 @@ public interface EmployeeDao extends JpaRepository<Employee, Integer> {
     @Query(value = "SELECT e FROM Employee e WHERE e.nic =:nic")
     public Employee getEmployeeByNIC(@Param("nic") String nic);
 
+
     //define query for get getEmployeeListWithoutUserAccount
     @Query(value = "SELECT e FROM Employee e WHERE e.id not in (select u.employee_id from User u)")
     public List<Employee> getEmployeeListWithoutUserAccount();

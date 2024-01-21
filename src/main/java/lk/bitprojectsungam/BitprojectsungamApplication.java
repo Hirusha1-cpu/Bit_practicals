@@ -45,7 +45,7 @@ public class BitprojectsungamApplication {
 	@RequestMapping(value = "/testui",method = RequestMethod.GET)
 	public ModelAndView testUi(){
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("test.html");
+		modelAndView.setViewName("dashboard.html");
 		return modelAndView;
 	}
 	@GetMapping(value = "/createadmin")

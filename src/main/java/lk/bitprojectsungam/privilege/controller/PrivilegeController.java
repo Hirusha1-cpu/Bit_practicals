@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,9 +74,31 @@ public class PrivilegeController {
         return getPrivilegeByUserModule(auth.getName(), modulename);
     }
 
-    
+    @PostMapping(value = "/privilege" , produces = "application/json")
+    public String save(@RequestBody Privilege privilege) {
+        //authentication and authorization
 
+        //duplicate
+        Privilege extPrivilege = dao.getByRoleModule(privilege.getRole_id().getId(),privilege.getModule_id().getId());
+        if(extPrivilege != null){
+            return "Save not completed : Privilege alredy exist by given role and module";
+        }
 
+        try {
+            //set auto generated value
+
+            //oparation
+            dao.save(privilege);
+            return "OK";
+
+        } catch (Exception e) {
+
+            return "Save not completed :"+e.getMessage();
+        }
+     
+    }
+
+ 
     //define function for get privilege by user module
     public HashMap<String, Boolean> getPrivilegeByUserModule(String username, String modulename) {
         HashMap<String, Boolean> userPrivilege = new HashMap<String, Boolean>();

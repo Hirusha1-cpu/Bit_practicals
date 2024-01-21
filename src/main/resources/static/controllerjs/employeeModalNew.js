@@ -403,6 +403,8 @@ const refillEmployeeForm = (item, index) => {
 
     // employee = employees[rowindex]; // No 'let' declaration, directly update the outer 'employee'
     employee = JSON.parse(JSON.stringify(item));
+    // employee = ajaxGetRequest("employee/byid/"+item.id)
+    // employee = ajaxGetRequest("employee/byid?id"+item.id+"&name="+employee.name)
     oldemployee = JSON.parse(JSON.stringify(item));
 
     console.log(employee);

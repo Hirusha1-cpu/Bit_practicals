@@ -20,7 +20,7 @@ public class LoginController {
         loginView.setViewName("error.html");
         return loginView;
     }
-    @GetMapping(value = "/index")
+    @GetMapping(value = "/dashboard")
      public ModelAndView indexUI(){
         //get user authentication object
         Authentication auth =  SecurityContextHolder.getContext().getAuthentication();
@@ -28,7 +28,7 @@ public class LoginController {
         loginView.addObject("logusername", auth.getName());
         loginView.addObject("title","DashBoard : BIT Project 2024");
 
-        loginView.setViewName("index.html");
+        loginView.setViewName("dashboard.html");
         return loginView;
     }
 

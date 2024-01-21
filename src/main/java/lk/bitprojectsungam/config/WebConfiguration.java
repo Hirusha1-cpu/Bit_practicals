@@ -30,7 +30,7 @@ public class WebConfiguration {
                 .formLogin(login -> {
                     login
                             .loginPage("/login")
-                            .defaultSuccessUrl("/index", true)
+                            .defaultSuccessUrl("/dashboard", true)
                             .failureUrl("/login?error=usernamepassworderror")
                             .usernameParameter("username")
                             .passwordParameter("password");// udin login eken ena un, pw metenta enwa ,html ekath ekka
