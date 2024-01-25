@@ -14,6 +14,9 @@ public interface UserDao extends JpaRepository<User, Integer>{
     @Query("select u from User u where u.employee_id.id = ?1")
     public User getUserByEmployeeId(Integer id);
 
+    @Query("select new User(u.id, u.username) from User u where u.id=?1")
+    public User getById(Integer id);
+
 //     SELECT bit_or(p.sel) as sel , bit_or(p.inst) as inst, bit_or(p.upd) as upd, bit_or(p.del) as del FROM bitproject123online.privilege as p
 // where p.role_id in (select uhr.role_id from bitproject123online.user_has_role as uhr 
 // where uhr.user_id in (select u.id from bitproject123online.user as u where u.username="Hirusha"))

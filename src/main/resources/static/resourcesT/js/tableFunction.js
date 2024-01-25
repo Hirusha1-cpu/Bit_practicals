@@ -25,6 +25,14 @@ const fillDataIntoTable = (tableId, dataList, propertyList, editButtonFunction, 
 
                 }
             }
+            if (itemOb.dataType == 'amount') {
+                if (dataList[index][itemOb.property] == null) {
+                    td.innerHTML = "-"
+                } else {
+                    td.innerHTML = "<b>Rs</b> " + parseFloat(dataList[index][itemOb.property]).toFixed(2)
+
+                }
+            }
             if (itemOb.dataType == 'function') {
                 td.innerHTML = itemOb.property(dataList[index]);
             }

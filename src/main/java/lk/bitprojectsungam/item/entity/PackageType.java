@@ -1,6 +1,6 @@
 package lk.bitprojectsungam.item.entity;
 
-import java.util.List;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,7 +31,7 @@ public class PackageType {
     private String name ;
 
 
-    public List<PackageType> findAll() {
-        return null;
-    }
+    // public List<PackageType> findAll() {
+    //     return null;
+    // }
 }

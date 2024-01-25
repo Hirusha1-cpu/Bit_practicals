@@ -2,13 +2,60 @@
 window.addEventListener('load', () => {
     
     itemFormRefresh();
+    itemRefreshTable()
 })
 let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/Item")
 
-const fillDataIntoItemTable = () =>{
-    // const displayProperty = {[
+const itemRefreshTable = () =>{
+  items = ajaxGetRequest("/item/findall")
 
-    // ]}
+  //need to define display columns
+  const columns = [
+   { dataType: "function", property :getItemNameCode},
+   { dataType: "amount", property :"salesprice"},
+   { dataType: "amount", property :"purchaseprice"},
+   { dataType: "function", property :getAddedUser},
+   { dataType: "function", property :getStatus},
+  ];
+
+  //call data fill function
+  fillDataIntoTable(tableItem,items, columns, refillItemForm, deleteItemForm, printItemForm, true, userPrivilege)
+
+  //add data table
+  $("#tableItem").dataTable();
+  //disable delete button
+
+   
+}
+
+const getItemNameCode = (ob) =>{
+    return ob.itemname + " " + ob.itemcode
+    
+}
+// const getSalesPrice = (ob) =>{
+//     //to fixed -> change to string
+//     return "Rs " + parseFloat(ob.salesprice).toFixed(2);
+// }
+// const getPurchasePrice = (ob) =>{
+//     return "Rs" + parseFloat(ob.purchaseprice).toFixed(2);
+// }
+const getAddedUser = (ob) =>{
+    // return ob.added_user_id.username;
+    let user = ajaxGetRequest("/user/byid/" +ob.delete_user)
+    return user.username;
+}
+const getStatus = (ob) =>{
+    return ob.itemstatus_id.name;
+}
+
+const refillItemForm = () =>{
+    
+}
+const deleteItemForm = () =>{
+
+}
+const printItemForm = () =>{
+
 }
 
 //define function for refresh item form
@@ -45,12 +92,12 @@ const itemFormRefresh = () => {
     //     textRop
     // ])
 
-    if (userPrivilege.insert) {
-        btnAdd.disabled = "";
-        $("btnAdd").css("cursor", "pointer");
+    if (userPrivilege.update) {
+        btnItemUpd.disabled = "";
+        $("btnItemUpd").css("cursor", "pointer");
     } else {
-        btnAdd.disabled = "disabled";
-        $("btnAdd").css("cursor", "not-allowed");
+        btnItemUpd.disabled = "disabled";
+        $("btnItemUpd").css("cursor", "not-allowed");
     }
 }
 
@@ -119,7 +166,7 @@ const checkFormErrors = () =>{
 }
 
 
-const submitItemFrom = () =>{
+const buttonItemUpdate = () =>{
     console.log("submit");
     console.log(item);
 

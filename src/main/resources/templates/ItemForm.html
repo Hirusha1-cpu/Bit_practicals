@@ -5,7 +5,7 @@
 
 </head>
 
-<head th:replace="~{ head :: headItemFragment}">
+<head th:replace="~{ head :: headItemFormFragment}">
 
 </head>
 
@@ -23,292 +23,265 @@
         <div class="row main mt-5">
             <div class="col mt-1" style="height: 500px;">
                 <div class="container-fluid mt-1 p-4 ">
-                    <!-- title -->
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <h2><i class="fa-solid fa-user "></i>Item Management </h2>
 
-                        </div>
-                    </div>
 
-                </div>
-                <!-- form button start -->
-                <div class="row col-2 " style="padding-left: 15px;">
-                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#empForm">
-                        Form
-                    </button>
-                </div>
-                <!-- form modal start -->
-                <div class="modal fade" id="empForm" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Item Form</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                    data-bs-target="#staticBackdrop"></button>
-                            </div>
-                            <div class="modal-body" data-bs-backdrop="static" data-bs-keyboard="false">
-                                <!-- Emp form start -->
-                                <div class="container-fluid">
-                                    <!-- title -->
-                                    <div class="row" style="height: 100px;">
-                                        <div class="col-12 text-center ">
-                                            <h2 class=""><i class="fa-solid fa-user "></i>Item Management </h2>
-
-                                        </div>
-                                    </div>
+                    <div>
+                        <!-- Emp form start -->
+                        <div class="container-fluid">
+                            <!-- title -->
+                            <div class="row" style="height: 100px;">
+                                <div class="col-12 text-center ">
+                                    <h2 class=""><i class="fa-solid fa-user "></i>Item Management </h2>
 
                                 </div>
-                                <form onsubmit="return false" id="formItem">
+                            </div>
+
+                        </div>
+                        <div class="col-6 text-end">
+                            <a href="/itemtable" class="btn btn-primary">View Item</a>
+
+                        </div>
+                        <form onsubmit="return false" id="formItem">
 
 
-                                    <div class="p-5 pt-0 fw-bold">
+                            <div class="p-5 pt-0 fw-bold">
 
-                                        <div class="row main justify-content-md-center ">
-                                            <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
-                                            <div class="container ">
-                                                <!-- Required field -->
-                                                <div class="row" style="margin-left: 10px;">
+                                <div class="row main justify-content-md-center ">
+                                    <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
+                                    <div class="container ">
+                                        <!-- Required field -->
+                                        <div class="row" style="margin-left: 10px;">
 
-                                                    <div>
-                                                        <b>
-                                                            <p class="fw-bold fs-5 fw-bold">
-                                                                <span class="text-danger">
+                                            <div>
+                                                <b>
+                                                    <p class="fw-bold fs-5 fw-bold">
+                                                        <span class="text-danger">
 
-                                                                    * Required
-                                                                </span>
-                                                            </p>
-                                                        </b>
-                                                    </div>
-                                                </div>
-                                                <!-- Required field end -->
+                                                            * Required
+                                                        </span>
+                                                    </p>
+                                                </b>
+                                            </div>
+                                        </div>
+                                        <!-- Required field end -->
 
-                                                <!-- brand / category/ subcategory -->
-                                                <div class="row">
-                                                    <!-- brand start -->
-                                                    <div class="col">
-                                                        <label for="selectBrand"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Brand</label>
-                                                        <select id="selectBrand" class="form-select form-select-lg"
-                                                            aria-label="Default select example"
-                                                            onchange="selectDFieldValidation(selectBrand,'', 'item', 'brand_id'); filterCategory()">
-                                                            <!-- <option selected disabled value="">Select Designation
+                                        <!-- brand / category/ subcategory -->
+                                        <div class="row">
+                                            <!-- brand start -->
+                                            <div class="col">
+                                                <label for="selectBrand"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">Brand</label>
+                                                <select id="selectBrand" class="form-select form-select-lg"
+                                                    aria-label="Default select example"
+                                                    onchange="selectDFieldValidation(selectBrand,'', 'item', 'brand_id'); filterCategory()">
+                                                    <!-- <option selected disabled value="">Select Designation
                                                                 </option>
                                                                 <option value="cashier">Cashier</option>
                                                                 <option value="manager">Manager</option> -->
 
-                                                        </select>
-                                                    </div>
-                                                    <!--  brand end -->
-                                                    <!-- category start -->
-                                                    <div class="col">
-                                                        <label for="selectCategory"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">Category</label>
-                                                        <select class="form-select form-select-lg"
-                                                            aria-label="Default select example" id="selectCategory"
-                                                            onchange="selectDFieldValidation(selectCategory,'', 'item', 'category_id'); filterSubCategory()">
-                                                     
-                                                        </select>
-                                                    </div>
-                                                    <!-- category end -->
-                                                    <!-- subcategory start -->
-                                                    <div class="col">
-                                                        <label for="selectSubCategory"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">SubCategory</label>
-                                                        <select class="form-select form-select-lg"
-                                                            aria-label="Default select example" id="selectSubCategory"
-                                                            onchange="selectDFieldValidation(selectSubCategory,'', 'item', 'subcategory_id')">
-                                                
-                                                        </select>
-                                                    </div>
-                                                    <!-- subcategory end -->
-                                                </div>
+                                                </select>
+                                            </div>
+                                            <!--  brand end -->
+                                            <!-- category start -->
+                                            <div class="col">
+                                                <label for="selectCategory"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">Category</label>
+                                                <select class="form-select form-select-lg"
+                                                    aria-label="Default select example" id="selectCategory"
+                                                    onchange="selectDFieldValidation(selectCategory,'', 'item', 'category_id'); filterSubCategory()">
 
-                                                <!-- item Size / Unit type/ package type -->
-                                                <div class="row">
-                                                    <!-- item start -->
-                                                    <div class="col">
-                                                        <label for="textItemSize"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">ItemSize</label>
-                                                        <input type="text" class="form-control form-control-lg "
-                                                            placeholder="Enter Item Size" id="textItemSize" required
-                                                            onkeyup="textValidation(textItemSize, '^(([1-9]{1}[0-9]{0,3}))$', 'item', 'itemsize')">
-                                                    </div>
-                                                    <!-- item end -->
-                                                    <!-- Unit Type start -->
-                                                    <div class="col">
-                                                        <label for="selectUnitType"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">UnitType</label>
-                                                        <select class="form-select form-select-lg"
-                                                            aria-label="Default select example" id="selectUnitType"
-                                                            onchange="selectFieldValidation(selectUnitType,'', 'item', 'unittype_id')">
+                                                </select>
+                                            </div>
+                                            <!-- category end -->
+                                            <!-- subcategory start -->
+                                            <div class="col">
+                                                <label for="selectSubCategory"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">SubCategory</label>
+                                                <select class="form-select form-select-lg"
+                                                    aria-label="Default select example" id="selectSubCategory"
+                                                    onchange="selectDFieldValidation(selectSubCategory,'', 'item', 'subcategory_id')">
 
-                                                        </select>
-                                                    </div>
-                                                    <!-- Unit Type end -->
-                                                    <!-- Package Type start -->
-                                                    <div class="col">
-                                                        <label for="selectPackageType"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">PackageType</label>
-                                                        <select class="form-select form-select-lg"
-                                                            aria-label="Default select example" id="selectPackageType"
-                                                            onchange="selectDFieldValidation(selectPackageType,'', 'item', 'packagetype_id'); generateItemName();">
-                                                       
-                                                        </select>
-                                                    </div>
-                                                    <!-- Package Type end -->
-                                                </div>
-                                                <!-- full item name start -->
-                                                <div class="row">
-                                                    <div class="mb-3 mt-3 row " style="height: 40px;">
-                                                        <label for="inputFullName1"
-                                                            class="col-lg-2 col-form-label fs-5 fw-bold">Item
-                                                            Name</label>
-                                                        <div class="col-lg-10 ">
-                                                            <input type="text" class="form-control form-control-lg "
-                                                                placeholder="Enter Item Name" id="inputFullItemName1"
-                                                                required
-                                                                onchange="textValidation(inputFullItemName1, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'itemname'); ">
+                                                </select>
+                                            </div>
+                                            <!-- subcategory end -->
+                                        </div>
 
+                                        <!-- item Size / Unit type/ package type -->
+                                        <div class="row">
+                                            <!-- item start -->
+                                            <div class="col">
+                                                <label for="textItemSize"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">ItemSize</label>
+                                                <input type="text" class="form-control form-control-lg "
+                                                    placeholder="Enter Item Size" id="textItemSize" required
+                                                    onkeyup="textValidation(textItemSize, '^(([1-9]{1}[0-9]{0,3}))$', 'item', 'itemsize')">
+                                            </div>
+                                            <!-- item end -->
+                                            <!-- Unit Type start -->
+                                            <div class="col">
+                                                <label for="selectUnitType"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">UnitType</label>
+                                                <select class="form-select form-select-lg"
+                                                    aria-label="Default select example" id="selectUnitType"
+                                                    onchange="selectDFieldValidation(selectUnitType,'', 'item', 'unittype_id')">
 
-                                                        </div>
-                                                    </div>
+                                                </select>
+                                            </div>
+                                            <!-- Unit Type end -->
+                                            <!-- Package Type start -->
+                                            <div class="col">
+                                                <label for="selectPackageType"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">PackageType</label>
+                                                <select class="form-select form-select-lg"
+                                                    aria-label="Default select example" id="selectPackageType"
+                                                    onchange="selectDFieldValidation(selectPackageType,'', 'item', 'packagetype_id'); generateItemName();">
+
+                                                </select>
+                                            </div>
+                                            <!-- Package Type end -->
+                                        </div>
+                                        <!-- full item name start -->
+                                        <div class="row">
+                                            <div class="mb-3 mt-3 row " style="height: 40px;">
+                                                <label for="inputFullName1"
+                                                    class="col-lg-2 col-form-label fs-5 fw-bold">Item
+                                                    Name</label>
+                                                <div class="col-lg-10 ">
+                                                    <input type="text" class="form-control form-control-lg "
+                                                        placeholder="Enter Item Name" id="inputFullItemName1" required
+                                                        onchange="textValidation(inputFullItemName1, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'itemname'); ">
 
 
                                                 </div>
-                                                <!-- fullname end -->
-                                                <!-- sales/ purchase -->
-                                                <div class="row">
-                                                    <!-- sales start -->
-                                                    <div class="col">
-                                                        <label for="inputSale"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">SalesPrice</label>
-                                                        <div class="col-lg-10 ">
-                                                            <input placeholder="Enter Sales Price" type="text"
-                                                                class="form-control form-control-lg" id="inputSale"
-                                                                onkeyup="textValidation(inputSale,'^(([1-9]{1}[0-9]{0,3})||([1-9]{1}[0-9]{0,3}[.][0-9]{1,3}))$', 'item', 'salesprice');"
-                                                                required>
-                                                        </div>
-                                                    </div>
-                                                    <!-- sales end -->
-                                                    <!-- purchase start -->
-                                                    <div class="col">
-                                                        <label for="inputPurchase"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">PurchasePrice</label>
-                                                        <!-- <div class="col-lg-10">
+                                            </div>
+
+
+                                        </div>
+                                        <!-- fullname end -->
+                                        <!-- sales/ purchase -->
+                                        <div class="row">
+                                            <!-- sales start -->
+                                            <div class="col">
+                                                <label for="inputSale"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">SalesPrice</label>
+                                                <div class="col-lg-10 ">
+                                                    <input placeholder="Enter Sales Price" type="text"
+                                                        class="form-control form-control-lg" id="inputSale"
+                                                        onkeyup="textValidation(inputSale,'^(([1-9]{1}[0-9]{0,3})||([1-9]{1}[0-9]{0,3}[.][0-9]{1,3}))$', 'item', 'salesprice');"
+                                                        required>
+                                                </div>
+                                            </div>
+                                            <!-- sales end -->
+                                            <!-- purchase start -->
+                                            <div class="col">
+                                                <label for="inputPurchase"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">PurchasePrice</label>
+                                                <!-- <div class="col-lg-10">
                                                                 <input placeholder="Enter Land No" type="text" class="form-control form-control-lg" id="inputLandNo">
                                                             </div> -->
-                                                        <div class="input-group mb-3 input-group-lg ">
+                                                <div class="input-group mb-3 input-group-lg ">
 
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Enter Purchase Price" aria-label="Username"
-                                                                aria-describedby="basic-addon1" id="inputPurchase"
-                                                                onkeyup="textValidation(inputPurchase, '^(([1-9]{1}[0-9]{0,3})||([1-9]{1}[0-9]{0,3}[.][0-9]{1,3}))$', 'item', 'purchaseprice');">
-                                                        </div>
-
-                                                    </div>
-                                                    <!-- purchase end -->
-
+                                                    <input type="text" class="form-control"
+                                                        placeholder="Enter Purchase Price" aria-label="Username"
+                                                        aria-describedby="basic-addon1" id="inputPurchase"
+                                                        onkeyup="textValidation(inputPurchase, '^(([1-9]{1}[0-9]{0,3})||([1-9]{1}[0-9]{0,3}[.][0-9]{1,3}))$', 'item', 'purchaseprice');">
                                                 </div>
-                                                <!-- photo/ note -->
-                                                <div class="row ">
 
-                                                    <!-- note start -->
-                                                    <div class="col ">
+                                            </div>
+                                            <!-- purchase end -->
 
-                                                        <div class="input-group">
-                                                            <span class="input-group-text fs-5 fw-bold">Note:<span
-                                                                    class="text-danger">(Optional)</span></span>
-                                                            <textarea class="form-control" aria-label="With textarea">
+                                        </div>
+                                        <!-- photo/ note -->
+                                        <div class="row ">
+
+                                            <!-- note start -->
+                                            <div class="col ">
+
+                                                <div class="input-group">
+                                                    <span class="input-group-text fs-5 fw-bold">Note:<span
+                                                            class="text-danger">(Optional)</span></span>
+                                                    <textarea class="form-control" aria-label="With textarea">
 
                                                                 </textarea>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- note end -->
                                                 </div>
-                                                <!-- rop, roq , item status-->
-                                                <div class="row">
-                                                    <!-- roq start -->
-                                                    <div class="col">
-                                                        <label for="textRoq"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">RoQ</label>
-                                                        <input type="text" class="form-control form-control-lg "
-                                                            placeholder="Enter RoQ" id="textRoq" required
-                                                            onkeyup="textValidation(textRoq, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'roq')">
+                                            </div>
 
-                                                    </div>
-                                                    <!-- roq end -->
-                                                    <!-- rop start -->
-                                                    <div class="col">
-                                                        <label for="textRop"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">RoP</label>
-                                                        <input type="text" class="form-control form-control-lg "
-                                                            placeholder="Enter Rop" id="textRop" required
-                                                            onkeyup="textValidation(textRop, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'item', 'rop')">
+                                            <!-- note end -->
+                                        </div>
+                                        <!-- rop, roq , item status-->
+                                        <div class="row">
+                                            <!-- roq start -->
+                                            <div class="col">
+                                                <label for="textRoq"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">RoQ</label>
+                                                <input type="text" class="form-control form-control-lg "
+                                                    placeholder="Enter RoQ" id="textRoq" required
+                                                    onkeyup="textValidation(textRoq, '^(([1-9]{1}[0-9]{0,3})||([1-9]{1}[0-9]{0,3}[.][0-9]{1,3}))$', 'item', 'roq')">
 
-                                                    </div>
-                                                    <!-- rop end -->
-                                                    <!-- emp status start -->
-                                                    <div class="col">
-                                                        <label for="selectItemStatus"
-                                                            class="col-sm-2 col-form-label fs-5 fw-bold">ItemStatus</label>
-                                                        <select class="form-select form-select-lg"
-                                                            aria-label="Default select example" id="selectItemStatus"
-                                                            onchange="selectDFieldValidation(selectItemStatus,'', 'item', 'itemstatus_id')">
-                                                            <!-- <option selected>Select Employee Status</option>
+                                            </div>
+                                            <!-- roq end -->
+                                            <!-- rop start -->
+                                            <div class="col">
+                                                <label for="textRop"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">RoP</label>
+                                                <input type="text" class="form-control form-control-lg "
+                                                    placeholder="Enter Rop" id="textRop" required
+                                                    onkeyup="textValidation(textRop, '^(([1-9]{1}[0-9]{0,3})||([1-9]{1}[0-9]{0,3}[.][0-9]{1,3}))$', 'item', 'rop')">
+
+                                            </div>
+                                            <!-- rop end -->
+                                            <!-- emp status start -->
+                                            <div class="col">
+                                                <label for="selectItemStatus"
+                                                    class="col-sm-2 col-form-label fs-5 fw-bold">ItemStatus</label>
+                                                <select class="form-select form-select-lg"
+                                                    aria-label="Default select example" id="selectItemStatus"
+                                                    onchange="selectDFieldValidation(selectItemStatus,'', 'item', 'itemstatus_id')">
+                                                    <!-- <option selected>Select Employee Status</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
                                                                 <option value="3">Three</option> -->
-                                                        </select>
-                                                    </div>
-                                                    <!-- emp status end -->
-                                                </div>
-                                                <!-- button group start -->
-                                                <div class="row mt-4 mb-3"
-                                                    style="display: flex;justify-content: space-between;">
-                                                    <div class="col">
-                                                        <button id="btnEmpclear" type="button"
-                                                            class="btn btn-lg btn-info"><i
-                                                                class="fa-solid fa-broom"></i>Clear</button>
-                                                    </div>
-                                                    <div class="col"
-                                                        style="display: flex; justify-content: flex-end;gap:10px">
-                                                        <button id="btnEmpUpd" type="button"
-                                                            class="btn btn-lg btn-warning" style="border-radius: 30px;"
-                                                            onclick="buttonEmpUpdate()"><i
-                                                                class="fa-solid fa-pen-to-square"></i>Update</button>
-                                                        <button id="btnEmpAdd" type="button"
-                                                            class="btn btn-lg btn-success" style="border-radius: 30px;"
-                                                            onclick="buttonEmpAdd()"><i
-                                                                class="fa-solid fa-plus"></i>Add</button>
-                                                    </div>
-                                                </div>
-                                                <!-- button group end -->
-
-
-
+                                                </select>
+                                            </div>
+                                            <!-- emp status end -->
+                                        </div>
+                                        <!-- button group start -->
+                                        <div class="row mt-4 mb-3"
+                                            style="display: flex;justify-content: space-between;">
+                                            <div class="col">
+                                                <button id="btnEmpclear" type="button" class="btn btn-lg btn-info"><i
+                                                        class="fa-solid fa-broom"></i>Clear</button>
+                                            </div>
+                                            <div class="col" style="display: flex; justify-content: flex-end;gap:10px">
+                                                <button id="btnEmpUpd" type="button" class="btn btn-lg btn-warning"
+                                                    style="border-radius: 30px;" onclick="buttonEmpUpdate()"><i
+                                                        class="fa-solid fa-pen-to-square"></i>Update</button>
+                                                <button id="btnAdd" type="button" class="btn btn-lg btn-success"
+                                                    style="border-radius: 30px;" onclick="submitItemFrom()"><i
+                                                        class="fa-solid fa-plus"></i>Add</button>
                                             </div>
                                         </div>
+                                        <!-- button group end -->
+
+
+
                                     </div>
-
-
-                                </form>
-                                <!-- Emp form end -->
-
+                                </div>
                             </div>
 
-                        </div>
+
+                        </form>
+                        <!-- Emp form end -->
+
                     </div>
+
+
+
+
+
                 </div>
-                <!-- form modal end -->
-                <!-- form button end -->
-
-
             </div>
         </div>
-    </div>
 </body>
 
 </html>

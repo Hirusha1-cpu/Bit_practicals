@@ -122,6 +122,10 @@
                     Subscribe to our newsletter
                   </label>
                 </div>
+
+                <div class="text-center text-danger mb-4" th:if="${param.error}">
+                  Invalid Username Password
+                </div>
   
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-primary btn-block mb-4">

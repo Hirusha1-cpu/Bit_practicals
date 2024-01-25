@@ -12,10 +12,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -154,5 +156,17 @@ public class UserController {
             return "Update not completed" + e.getMessage();
         }
     }
+
+    //create function for get user by id
+    // @GetMapping(value="/user/byid",params = {"id"}, produces = "application/json")
+    //  public User getEmployeesById(@RequestParam("id") Integer id){
+    //     return dao.getById(id);
+    // }
+
+      @GetMapping(value = "/user/byid/{id}",produces = "application/json")
+    public User getUserByUserId(@PathVariable("id")Integer id){
+        return dao.getById(id);
+    }
+
 
 }

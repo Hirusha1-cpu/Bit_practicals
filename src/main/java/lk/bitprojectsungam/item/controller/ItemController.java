@@ -64,6 +64,26 @@ public class ItemController {
             return viewEmp;
         }
     }
+    @Transactional
+    @RequestMapping(value = "/itemtable")
+    public ModelAndView itemUI2() {
+        // get user authentication object
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "Item");
+
+        ModelAndView viewEmp = new ModelAndView();
+        viewEmp.addObject("logusername", auth.getName());
+        viewEmp.addObject("title", "Privilege Management : BIT Project 2024");
+
+        if (logUserPrivi.get("insert")) {
+
+            viewEmp.setViewName("ItemTable.html");
+            return viewEmp;
+        } else {
+            viewEmp.setViewName("error.html");
+            return viewEmp;
+        }
+    }
 
     @PostMapping(value = "/item")
     public String saveItem(@RequestBody Item item) {
@@ -78,11 +98,21 @@ public class ItemController {
         // dupilicate check
 
         try {
+
             // set auto generate value
-            
             item.setAddeddatetime(LocalDateTime.now().toLocalDate());
             User logedUser = userDao.getUserByUsername(auth.getName());
             item.setAdded_user_id(logedUser);
+            item.setDelete_user(logedUser.getId());
+
+            String nextItemCode = itemDao.getNextItemCode();
+            if (nextItemCode == null) {
+
+                item.setItemcode("I00001");
+            }else{
+                item.setItemcode(nextItemCode);
+            }
+
             // operator
             itemDao.save(item);
             // set dependence value

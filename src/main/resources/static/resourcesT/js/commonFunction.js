@@ -1,3 +1,11 @@
+//set default color into element
+const resetIntoDefault = () =>{
+    elementArray.forEach(element => {
+        // element.classList.remove("is-valid")
+        // element.classList.remove("is-invalid")
+        element.style.border = "1px solid #ced4da";
+    });
+}
 //define function for ajax get request
 const ajaxGetRequest = (url) =>{
     let serverResponse;
