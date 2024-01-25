@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{ head :: headFragment}">
+
+</head>
+
+<head th:replace="~{ head :: headSupplierFragment}">
+
+</head>
+
+
+<body>
+    <!-- top navbar -->
+    <nav th:replace="~{ topNavBar :: topnavbarfragment}"></nav>
+
+    <!-- side bar -->
+    <div th:replace="~{ sideBar :: sidebarfragment}"></div>
+
+    <!-- Ui content area -->
+
+    <div class="container ">
+
+        <div class="row main mt-5">
+            <div class="col mt-1" style="height: 500px;">
+                <div class="container-fluid mt-1 p-4 ">
+                    <!-- title -->
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h2><i class="fa-solid fa-user "></i>Supplier Management </h2>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row  mt-2 " style="padding-left: 15px;">
+                    <form onsubmit="return false" id="formEmployee">
+
+
+                        <div class="p-5 pt-0 fw-bold">
+
+                            <div class="row main justify-content-md-center ">
+                                <!-- style="margin-top: 10px;width: 1200px; margin-left: 200px;" -->
+                                <div class="container ">
+                                    <!-- Required field -->
+                                    <div class="row" style="margin-left: 10px;">
+
+                                        <div>
+                                            <b>
+                                                <p class="fw-bold fs-5 fw-bold">
+                                                    <span class="text-danger">
+
+                                                        * Required
+                                                    </span>
+                                                </p>
+                                            </b>
+                                        </div>
+                                    </div>
+                                    <!-- Required field end -->
+                                    <!-- supplier name/ status start -->
+                                    <div class="row">
+                                        <div class="mb-3 row " style="height: 40px;">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <label for="inputFullName1"
+                                                        class="col-lg-2 col-form-label fs-5 fw-bold">Supplier-name
+                                                        </label>
+                                                    <div class="col-lg-10 ">
+                                                        <input type="text" class="form-control form-control-lg "
+                                                            placeholder="Enter Full Name" id="inputFullName1" required
+                                                            onkeyup="textValidation(inputFullName1, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'supplier', 'suppliername')">
+    
+    
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <label for="inputDesignation"
+                                                        class="col-sm-2 col-form-label fs-5 fw-bold">EmpStatus</label>
+                                                    <div class="col-3">
+
+                                                        <select class="form-select form-select-lg"
+                                                            aria-label="Default select example" id="selectEStatus"
+                                                            onchange="selectDFieldValidation(selectSupplierStatus,'', 'supplier', 'supplierstatus_id')">
+                                                            <option selected>Select Employee Status</option>
+                                                            <option value="1">One</option>
+                                                            <option value="2">Two</option>
+                                                            <option value="3">Three</option>
+                                                        </select>
+                                                    </div>
+
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                    <!-- fullname end -->
+                                    <div class="row">
+                                        <!-- alling name start -->
+                                        <div class="col-5">
+                                            <select name="" multiple class="form-select" id="selectAllItem">
+                                                <option value="">Select Item</option>
+                                            </select>
+
+                                        </div>
+                                        <!-- alling name end -->
+                                        <!-- buttons start -->
+                                        <div class="col-2">
+
+                                        </div>
+                                        <!-- buttons end -->
+                                        <!-- selected item start -->
+                                        <div class="col-5">
+                                            <select name="" multiple class="form-select" id="selectAllItem">
+                                                <option value="">Selected</option>
+                                            </select>
+
+                                        </div>
+                                        <!-- selected item end -->
+
+
+                                    </div>
+                            
+                                    <!-- button group start -->
+                                    <div class="row mt-4 mb-3" style="display: flex;justify-content: space-between;">
+                                        <div class="col">
+                                            <button id="btnEmpclear" type="button" class="btn btn-lg btn-info"><i
+                                                    class="fa-solid fa-broom"></i>Clear</button>
+                                        </div>
+                                        <div class="col" style="display: flex; justify-content: flex-end;gap:10px">
+                                            <button id="btnEmpUpd" type="button" class="btn btn-lg btn-warning"
+                                                style="border-radius: 30px;" onclick="buttonEmpUpdate()"><i
+                                                    class="fa-solid fa-pen-to-square"></i>Update</button>
+                                            <button id="btnEmpAdd" type="button" class="btn btn-lg btn-success"
+                                                style="border-radius: 30px;" onclick="buttonEmpAdd()"><i
+                                                    class="fa-solid fa-plus"></i>Add</button>
+                                        </div>
+                                    </div>
+                                    <!-- button group end -->
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+                </div>
+
+                <!-- table start -->
+                <table class="table table-bordered mt-3" id="tableSupplier">
+                    <thead class="table-dark">
+                        <th>#</th>
+                        <th>Number</th>
+                        <th>Full Name</th>
+                        <th>NIC</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Designation</th>
+                        <th>Use Account</th>
+                        <th>Button</th>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <!-- table end -->
+
+            </div>
+        </div>
+    </div>
+
+    <!-- link js file -->
+    <!-- <script src="employeeModal.js"></script> -->
+</body>
+
+</html>
