@@ -50,20 +50,24 @@ public class BitprojectsungamApplication {
 	}
 	@GetMapping(value = "/createadmin")
 	public String generateAdmin(){
-		User adminUser = new User();
-		adminUser.setUsername("Admin");
-		adminUser.setEmail("admin@gmail.com");
-		adminUser.setPassword(bCryptPasswordEncoder.encode("12345"));
-		adminUser.setStatus(true);
-		adminUser.setAdded_datetime(LocalDateTime.now());
-
-		adminUser.setEmployee_id(employeeDao.getReferenceById(1));
-		Set<Role> roles = new HashSet<Role>();
-		roles.add(roleDao.getReferenceById(1));
-
-		adminUser.setRoles(roles);
-
-		userDao.save(adminUser);
+		User existAdmin = userDao.getUserByUsername("Admin");
+		if (existAdmin == null) {
+			
+			User adminUser = new User();
+			adminUser.setUsername("Admin");
+			adminUser.setEmail("admin@gmail.com");
+			adminUser.setPassword(bCryptPasswordEncoder.encode("12345"));
+			adminUser.setStatus(true);
+			adminUser.setAdded_datetime(LocalDateTime.now());
+	
+			adminUser.setEmployee_id(employeeDao.getReferenceById(1));
+			Set<Role> roles = new HashSet<Role>();
+			roles.add(roleDao.getReferenceById(1));
+	
+			adminUser.setRoles(roles);
+	
+			userDao.save(adminUser);
+		}
 
 		return "<script> window.location.replace('http://localhost:8080/login');</script>";
 	}

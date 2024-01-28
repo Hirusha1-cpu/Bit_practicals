@@ -15,6 +15,7 @@ public class WebConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(auth -> {
+            //allrole kiynne user account ekak tibot witarai access hmbenne
             auth
                     .requestMatchers("/resourcesT/**").permitAll()
                     .requestMatchers("/createadmin").permitAll()
