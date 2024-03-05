@@ -50,4 +50,11 @@ public class Privilege {
     @ManyToOne // relationship format
     @JoinColumn(name = "module_id", referencedColumnName = "id") //join column condition
     private Module module_id ;
+
+    // public Privilege (Boolean sel, Boolean inst, Boolean upd, Boolean del){
+    //     this.sel = sel;
+    //     this.inst = inst;
+    //     this.upd = upd;
+    //     this.del = del;
+    // }
 }

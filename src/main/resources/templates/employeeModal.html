@@ -173,7 +173,7 @@
                                                         <div class="col-lg-10">
                                                             <input placeholder="Enter NIC" type="text"
                                                                 class="form-control form-control-lg" id="inputNIC"
-                                                                onkeyup="textValidation(inputNIC, '^(([0-9]{9}[VvXxSs])|([0-9]{12}))$', 'employee', 'nic');">
+                                                                onkeyup="textValidation(inputNIC, '^(([0-9]{9}[VvXxSs])|([0-9]{11}))$', 'employee', 'nic'); generateGenderDOB(this)">
                                                         </div>
                                                     </div>
                                                     <!-- nic end -->
@@ -218,11 +218,14 @@
                                                         <div class="col-lg-10">
                                                             <input type="date" class="form-control form-control-lg"
                                                                 id="inputDob" required
-                                                                onchange="dateFieldValidation(inputDob,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dateofbirth');">
+                                                                onchange="dateFieldValidation(inputDob,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dateofbirth'); generateAge(this)">
                                                         </div>
 
                                                     </div>
                                                     <!-- dob end -->
+                                                    <div style="display: none;" id="divSample">
+                                                        <input type="text" placeholder="sss" class="form-control" id="textSs">
+                                                    </div>
 
                                                 </div>
                                                 <div class="row">
@@ -233,7 +236,7 @@
                                                         <div class="col-lg-10 ">
                                                             <input placeholder="Enter Mobile No" type="text"
                                                                 class="form-control form-control-lg" id="inputMobNo"
-                                                                onkeyup="textValidation(inputMobNo,'^[0][7][1245678][0-9]{7}$', 'employee', 'mobile');"
+                                                                onkeyup="textValidation(inputMobNo,'^[0][7][1245678][0-9]{7}$', 'employee', 'mobile','oldemployee');"
                                                                 required>
                                                         </div>
                                                     </div>

@@ -109,18 +109,18 @@ const refreshEmployeeTable = () => {
     //call fill data into table function
     // fillDataIntoTable(tableId,dataList, display property List, refillFunctionName, deleteFunctionName, printFunctionName,buttonVisibility)
     fillDataIntoTable(tableEmployee, employees, displayProperty, refillEmployeeForm,
-         deleteButtonFunction, printEmployee, true, userPrivilege)
+        deleteButtonFunction, printEmployee, true, userPrivilege)
 
-         //disable delete button
-         employees.forEach((element,index) => {
-            if (element.employeestatus_id.name == "Deleted") {
-                if (userPrivilege.delete) {
-                    tableEmployee.children[1].children[index].children[9].children[1].disabled = "disabled";
-                    
-                }
-                
+    //disable delete button
+    employees.forEach((element, index) => {
+        if (element.employeestatus_id.name == "Deleted") {
+            if (userPrivilege.delete) {
+                tableEmployee.children[1].children[index].children[9].children[1].disabled = "disabled";
+
             }
-        });
+
+        }
+    });
 
     // Initialize DataTables on the tableEmployee
     $(document).ready(function () {
@@ -154,6 +154,7 @@ const getEmployeeStatus = (rowOb) => {
 const refreshEmployeeForm = () => {
     //create empty object
     employee = {};
+    oldemployee= null;
     // get data list for select element
     // designations = [
     //     { id: 1, name: "Manager" },
@@ -180,8 +181,8 @@ const refreshEmployeeForm = () => {
     //set min value
     //min = current date newDate()
     //max = current date + 14 days
-    inputDob.min = '2023-09-01';
-    inputDob.max = '2023-09-30';
+    // inputDob.min = '2023-09-01';
+    // inputDob.max = '2023-09-30';
 
     //need to set default color
     inputNIC.classList.remove("is-valid");
@@ -194,14 +195,14 @@ const refreshEmployeeForm = () => {
 
     btnEmpUpd.disabled = true;
     // btnEmpUpd.style.cursor = "not-allowed";
-    $("btnEmpUpd").css("cursor","not-allowed");
+    $("btnEmpUpd").css("cursor", "not-allowed");
     if (userPrivilege.insert) {
         btnEmpAdd.disabled = false
-        $("btnEmpAdd").css("cursor","pointer");
-    }else{
+        $("btnEmpAdd").css("cursor", "pointer");
+    } else {
 
         btnEmpAdd.disabled = true
-        $("btnEmpAdd").css("cursor","not-allowed");
+        $("btnEmpAdd").css("cursor", "not-allowed");
     }
 }
 
@@ -225,39 +226,39 @@ const getHasUserAccount = (rowOb) => {
     console.log("rowOb", rowOb);
     for (let element of hasUserAccount) {
         console.log(element.fullname);
-        
+
         if (element.fullname === rowOb.fullname) {
             return '<p class="working-status">' + 'yes' + '</p>';
         }
-     
+
     }
 
 }
 
 const deleteButtonFunction = (rowOb, rowindex) => {
-    setTimeout(function(){
+    setTimeout(function () {
 
         const userConfirm = confirm('Are you sure you want to delete' + rowOb.fullname);
         if (userConfirm) {
             // employees[rowindex].employeeStatus_id = {id:3, name:'Delete'};
-    
+
             let serverResponse = ajaxRequestBodyMethod("/employee", "DELETE", rowOb)
             if (serverResponse == "OK") {
                 alert("Delete successfully...!")
                 refreshEmployeeTable();
                 formEmployee.reset();
                 refreshEmployeeForm();
-    
-    
+
+
             } else {
                 alert("Delete not succefully  .." + serverResponse)
             }
-    
+
             // alert('Employee delete succefully');
             // refreshEmployeeTable()
-    
+
         }
-    },500)
+    }, 500)
 }
 
 //function of generate calling name values
@@ -425,42 +426,42 @@ const refillEmployeeForm = (item, index) => {
         inputLand.value = ""
     }
 
-    if(employee.gender == "Male"){
+    if (employee.gender == "Male") {
         flexRadioMale.checked = true;
-    }else{
+    } else {
         flexRadioFemale.checked = true;
 
     }
     //select designation
-    fillDataIntoSelect(selectDesignation, "Select Designation", designations, 'name',employee.designation_id.name)
+    fillDataIntoSelect(selectDesignation, "Select Designation", designations, 'name', employee.designation_id.name)
 
     //select emp status
-    fillDataIntoSelect(selectEStatus, "Select Status", Empstatuses, 'name',employee.employeestatus_id.name)
+    fillDataIntoSelect(selectEStatus, "Select Status", Empstatuses, 'name', employee.employeestatus_id.name)
 
     btnEmpUpd.disabled = "";
     // btnEmpUpd.style.cursor = "not-allowed";
-    $("btnEmpUpd").css("cursor","pointer");
+    $("btnEmpUpd").css("cursor", "pointer");
     btnEmpAdd.disabled = true;
-    $("btnEmpAdd").css("cursor","not-allowed");
+    $("btnEmpAdd").css("cursor", "not-allowed");
 
     let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/Employee")
     if (userPrivilege.update) {
         btnEmpUpd.disabled = "";
-        $("btnEmpUpd").css("cursor","pointer");
-    }else{
+        $("btnEmpUpd").css("cursor", "pointer");
+    } else {
         btnEmpUpd.disabled = "disabled";
-        $("btnEmpUpd").css("cursor","not-allowed");
+        $("btnEmpUpd").css("cursor", "not-allowed");
     }
 
 }
 //define method for check updates
-const checkUpdate =()=>{
+const checkUpdate = () => {
     let updates = "";
     if (employee.nic != oldemployee.nic) {
         updates = updates + "NIC is changed"
     }
     if (employee.mobile != oldemployee.mobile) {
-        updates = updates + "mobile is changed into"+ employee.mobile
+        updates = updates + "mobile is changed into" + employee.mobile
     }
     if (employee.designation_id.name != oldemployee.designation_id.name) {
         updates = updates + "designation is changed"
@@ -474,37 +475,37 @@ const checkUpdate =()=>{
 }
 
 //define function for employee update
-const buttonEmpUpdate =()=>{
+const buttonEmpUpdate = () => {
     //check error
     let error = checkError();
-    if(error == ""){
+    if (error == "") {
         //check form update
         let updates = checkUpdate();
-        if(updates != ""){
+        if (updates != "") {
             //call put service
-            let userConfirmation = confirm("are u sure to update following changes...?"+updates)
+            let userConfirmation = confirm("are u sure to update following changes...?" + updates)
             if (userConfirmation) {
                 let updateServiceResponse = ajaxRequestBodyMethod("/employee", "PUT", employee)
                 //check backend response
-            if (updateServiceResponse =="OK") {
-                alert("Update successfully...!" )
-                refreshEmployeeTable();
-                formEmployee.reset();
-                refreshEmployeeForm();
-                //need hide modal
-                $('#empForm').modal('hide');
+                if (updateServiceResponse == "OK") {
+                    alert("Update successfully...!")
+                    refreshEmployeeTable();
+                    formEmployee.reset();
+                    refreshEmployeeForm();
+                    //need hide modal
+                    $('#empForm').modal('hide');
 
-            } else {
-                alert("Update not succefully  .." + updateServiceResponse)
-            }
+                } else {
+                    alert("Update not succefully  .." + updateServiceResponse)
+                }
 
             }
-        }else{
+        } else {
             alert("Form has no any changes");
         }
 
-    }else{
-        alert("Form has following errors \n"+ error)
+    } else {
+        alert("Form has following errors \n" + error)
     }
 }
 
@@ -514,14 +515,94 @@ const printEmployee = (rowindex) => {
     newwindow = window.open()
 
     newwindow.document.write(
-        "<head>"+
+        "<head>" +
         "<link rel='stylesheet' href='resourcesT/bootstrap-5.2.3/css/bootstrap.min.css'></head><body>"
         +
         tableEmployee.outerHTML +
         "</body>"
     )
-    setTimeout(function(){
+    setTimeout(function () {
         newwindow.print();
-    },1000)
+    }, 1000)
 
+}
+
+
+//create function for generate age
+let year; // Declare year outside the loop
+
+const generateAge = (element) => {
+    let dob = element.value;
+    let currentDate = new Date();
+    let dateDOB = new Date(dob);
+    console.log(currentDate);
+    console.log(dateDOB);
+
+    let difTime = currentDate.getTime() - dateDOB.getTime()
+    let difDate = new Date(difTime)
+    console.log(difDate);
+
+    let age = Math.abs(difDate.getFullYear() - 1970)
+    console.log("Age is " + age);
+
+    if (age > 18) {
+        // textSs.required = true;
+        divSample.style.display = "block"
+    }
+};
+
+const generateGenderDOB = (element) => {
+    let nicValue = element.value
+    let year, month, date;
+    let days;
+    let dob;
+    let gender;
+    if (new RegExp('^(([0-9]{9}[VvXxSs])|([0-9]{11}))$')) {
+
+
+        if (nicValue.length == 10) {
+            year = "19" + nicValue.substring(0, 2)
+            days = nicValue.substring(2, 5)
+        }
+        if (nicValue.length == 11) {
+            year = nicValue.substring(0, 4)
+            days = nicValue.substring(4, 7)
+
+        }
+
+        console.log(year);
+        console.log(days);
+
+        if (days < 500) {
+            flexRadioMale.checked = true;
+        } else {
+
+            flexRadioFemale.checked = true;
+            days = days - 500
+        }
+
+        console.log(days);
+        let DOBDate = new Date(year + "-01-01")
+        // DOBDate.setFullYear(year)
+        if (year % 4 != 0) {
+
+            DOBDate.setDate(parseInt(days) - 1)
+
+        } else {
+
+            DOBDate.setDate(parseInt(days))
+        }
+
+
+        month = DOBDate.getMonth() + 1
+        if (month < 10) month = "0" + month;
+        date = DOBDate.getDate();
+        if (date < 10) date = "0" + date;
+        dob = year + "-" + month + "-" + date;
+        inputDob.value = dob
+
+        console.log(dob);
+    } else {
+
+    }
 }

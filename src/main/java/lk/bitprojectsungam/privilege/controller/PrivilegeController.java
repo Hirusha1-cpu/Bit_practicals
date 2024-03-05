@@ -70,6 +70,7 @@ public class PrivilegeController {
     //create get mapping for get privilege by logged user module
     @GetMapping(value = "/privilege/bylogedusermodule/{modulename}", produces = "application/json")
     public HashMap<String, Boolean> getPrivilegeByLoggedUserModule(@PathVariable("modulename") String modulename){
+    // public Privilege getPrivilegeByLoggedUserModule(@PathVariable("modulename") String modulename){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return getPrivilegeByUserModule(auth.getName(), modulename);
     }
@@ -101,6 +102,7 @@ public class PrivilegeController {
  
     //define function for get privilege by user module
     public HashMap<String, Boolean> getPrivilegeByUserModule(String username, String modulename) {
+    // public Privilege getPrivilegeByUserModule(String username, String modulename) {
         HashMap<String, Boolean> userPrivilege = new HashMap<String, Boolean>();
         if (username.equals("Admin")) {
             userPrivilege.put("select", true);

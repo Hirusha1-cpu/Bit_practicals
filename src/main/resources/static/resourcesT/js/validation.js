@@ -1,15 +1,21 @@
 //create text feild validation function
-const textValidation = (fieldId, Pattern, object, property) => {
+const textValidation = (fieldId, Pattern, object, property, oldobject) => {
 
     const fieldValue = fieldId.value;
     const regPattern = new RegExp(Pattern);
 
     if (fieldValue !== '') {
         if (regPattern.test(fieldValue)) {
-            fieldId.style.border = '2px solid green';
+            // fieldId.style.border = '2px solid green';
             //object property value binding
             // console.log(window['employee']);
             window[object][property] = fieldValue;
+            if (window[oldobject]  != null && window[object][property] != window[oldobject][property]) {
+                fieldId.style.border = '2px solid orange';
+                
+            } else {
+                fieldId.style.border = '2px solid green';
+            }
         } else {
             //need to bind null
 
