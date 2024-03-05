@@ -35,17 +35,25 @@ const textValidation = (fieldId, Pattern, object, property, oldobject) => {
 }
 
 //create select field validation function
-const selectFieldValidation = (fieldId, Pattern, object, property) => {
+const selectFieldValidation = (fieldId, Pattern, object, property, oldobject) => {
     const fieldValue = fieldId.value;
 
 
     if (fieldValue !== '') {
 
-        fieldId.style.border = '2px solid green';
+    
         window[object][property] = fieldValue;
+  
+        if (window[oldobject]  != null && window[object][property]['id'] != window[oldobject][property]['id']) {
+            fieldId.style.border = '2px solid orange';
+            
+        } else {
+            fieldId.style.border = '2px solid green';
+        }
 
     } else {
-
+        
+        window[object][property] = null
         if (fieldId.required) {
             fieldId.style.border = '2px solid red';
         } else {
@@ -54,14 +62,21 @@ const selectFieldValidation = (fieldId, Pattern, object, property) => {
     }
 }
 //create select field validation function
-const selectDFieldValidation = (fieldId, Pattern, object, property) => {
+const selectDFieldValidation = (fieldId, Pattern, object, property, oldobject) => {
     const fieldValue = fieldId.value;
 
 
     if (fieldValue !== '') {
 
-        fieldId.style.border = '2px solid green';
+        // fieldId.style.border = '2px solid green';
         window[object][property] = JSON.parse(fieldValue);
+        if (window[oldobject]  != null && window[object][property] != window[oldobject][property]) {
+            fieldId.style.border = '2px solid orange';
+            
+        } else {
+            fieldId.style.border = '2px solid green';
+        }
+
 
     } else {
         window[object][property] = null;

@@ -307,16 +307,24 @@
                                                     <div class="col">
                                                         <label for="inputDesignation"
                                                             class="col-sm-2 col-form-label fs-5 fw-bold">Designation</label>
-                                                        <select id="selectDesignation"
-                                                            class="form-select form-select-lg"
-                                                            aria-label="Default select example"
-                                                            onchange="selectDFieldValidation(selectDesignation,'', 'employee', 'designation_id')">
-                                                            <!-- <option selected disabled value="">Select Designation
-                                                            </option>
-                                                            <option value="cashier">Cashier</option>
-                                                            <option value="manager">Manager</option> -->
+                                                            <div class="input-group">
 
-                                                        </select>
+                                                                <select id="selectDesignation"
+                                                                    class="form-select form-select-lg"
+                                                                    aria-label="Default select example"
+                                                                    onchange="selectDFieldValidation(selectDesignation,'', 'employee', 'designation_id','oldemployee')">
+                                                                    <!-- <option selected disabled value="">Select Designation
+                                                                    </option>
+                                                                    <option value="cashier">Cashier</option>
+                                                                    <option value="manager">Manager</option> -->
+        
+                                                                </select>
+                                                                <span>
+                                                                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                                        Link with href
+                                                                      </a>
+                                                                </span>
+                                                            </div>
                                                     </div>
                                                     <!-- designation end -->
                                                     <!-- civil status start -->
@@ -325,7 +333,7 @@
                                                             class="col-sm-2 col-form-label fs-5 fw-bold">Civil</label>
                                                         <select class="form-select form-select-lg"
                                                             aria-label="Default select example" id="selectStatus"
-                                                            onchange="selectFieldValidation(selectStatus,'', 'employee', 'civilstatus')">
+                                                            onchange="selectFieldValidation(selectStatus,'', 'employee', 'civilstatus','oldemployee')">
                                                             <option selected>Select Civil Status</option>
                                                             <option value="1">One</option>
                                                             <option value="2">Two</option>
@@ -339,7 +347,7 @@
                                                             class="col-sm-2 col-form-label fs-5 fw-bold">EmpStatus</label>
                                                         <select class="form-select form-select-lg"
                                                             aria-label="Default select example" id="selectEStatus"
-                                                            onchange="selectDFieldValidation(selectEStatus,'', 'employee', 'employeestatus_id')">
+                                                            onchange="selectDFieldValidation(selectEStatus,'', 'employee', 'employeestatus_id','oldemployee')">
                                                             <!-- <option selected>Select Employee Status</option>
                                                             <option value="1">One</option>
                                                             <option value="2">Two</option>
@@ -358,7 +366,7 @@
                                                     <div class="col"
                                                         style="display: flex; justify-content: flex-end;gap:10px">
                                                         <button id="btnEmpUpd" type="button" class="btn btn-lg btn-warning"
-                                                            style="border-radius: 30px;" onclick="buttonEmpUpdate()"><i
+                                                            style="border-radius: 30px; pointers-events:all;" onclick="buttonEmpUpdate()"><i
                                                                 class="fa-solid fa-pen-to-square"></i>Update</button>
                                                         <button id="btnEmpAdd" type="button" class="btn btn-lg btn-success"
                                                             style="border-radius: 30px;" onclick="buttonEmpAdd()"><i
