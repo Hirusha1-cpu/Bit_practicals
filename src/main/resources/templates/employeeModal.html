@@ -321,11 +321,31 @@
                                                                 </select>
                                                                 <span>
                                                                     <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                                                        Link with href
+                                                                        New
                                                                       </a>
                                                                 </span>
                                                             </div>
                                                     </div>
+                                                    <!-- collapse designation form -->
+                                                    <div class="collapse" id="collapseExample">
+                                                        <div class="card card-body">
+                                                            <form action="" onsubmit="return false" id="designationForm">
+                                                                <div class="row">
+                                                                    <label for="" class="col-4 fw-bold">Name :</label>
+                                                                    <div class="col-8">
+                                                                        <input type="text" class="form-control" placeholder="Enter Designation name"
+                                                                        id="textDesignationName" 
+                                                                        onkeyup="textValidation(textDesignationName,'','designation_id','name','designation_idold')">
+                                                                    </div>
+                                                                     </div>
+                                                                <div class="row">
+                                                                <button class="btn btn-success" onclick="buttonDesignationSubmit()">
+                                                                    Add
+                                                                </button>    
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                      </div>
                                                     <!-- designation end -->
                                                     <!-- civil status start -->
                                                     <div class="col">

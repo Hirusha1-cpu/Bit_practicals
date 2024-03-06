@@ -4,6 +4,8 @@
 //     const employeeTable = document.querySelector('#tableEmployee')
 //     console.log(employeeTable);
 
+// const { error } = require("mongo-tools/lib/logger");
+
 // }
 
 // access browser onload event
@@ -14,7 +16,10 @@ window.addEventListener('load', () => {
     refreshEmployeeTable();
 
     //call form refreash function
-    refreshEmployeeForm()
+    refreshEmployeeForm();
+
+    //callDesignation form refreash function
+    refreshDesignationForm()
 })
 let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/EMPLOYEE")
 
@@ -604,5 +609,39 @@ const generateGenderDOB = (element) => {
         console.log(dob);
     } else {
 
+    }
+}
+
+const refreshDesignationForm = () =>{
+    designation_id = {}
+    designation_idold = null;
+    textDesignationName.value = ""
+    textDesignationName.style.border = "1px solid #ced4da"
+
+}
+//create function for create designation form
+const buttonDesignationSubmit = () =>{
+    console.log("submit designation form");
+    if (designation_id.name != null) {
+        let userConfirm = confirm("Are u want to add that designation?" + designation_id.name);
+        if (userConfirm) {
+            let postResponse = ajaxRequestBodyMethod("/designation", "POST" , designation_id )
+            if (postResponse == "OK") {
+                alert("Successfully Added")
+
+                designations = ajaxGetRequest('/designation/findall')
+                fillDataIntoSelect(selectDesignation, 'Select Designation', designations, 'name',textDesignationName.value)
+                selectDesignation.style.border = "1px solid green"
+                employee.designation_id= JSON.parse(selectDesignation.value);
+                $("#collapseExample").collapse('hide');
+                refreshDesignationForm()
+            }else{
+                alert("Save not completed"+postResponse)
+            }
+
+        }
+
+    }else{
+        alert("Please Enter Designation")
     }
 }
