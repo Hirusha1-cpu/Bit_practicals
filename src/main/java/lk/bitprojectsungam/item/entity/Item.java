@@ -114,5 +114,13 @@ public class Item {
       
     }
 
+    public Item(Integer id,String itemcode,String itemname){
+        this.id = id;
+        this.itemcode = itemcode;
+        this.itemname = itemname;
+   
+      
+    }
+
 
 }

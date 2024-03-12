@@ -49,18 +49,48 @@ return serverResponse;
 // define function for fill data into select element
 const fillDataIntoSelect = (fieldId,message, dataList, property, selectedValue)=>{
     fieldId.innerHTML = '';
-    const optionMsg = document.createElement('option');
-    optionMsg.value = ""
-    optionMsg.innerText = message;
-    optionMsg.selected = 'selected';
-    optionMsg.disabled = 'disabled';
-    fieldId.appendChild(optionMsg)
+    if (message !== "") {
+
+        
+                const optionMsg = document.createElement('option');
+                optionMsg.value = ""
+                optionMsg.innerText = message;
+                optionMsg.selected = 'selected';
+                optionMsg.disabled = 'disabled';
+                fieldId.appendChild(optionMsg)
+    }
     
     dataList.forEach(element => {
         let option = document.createElement('option');
         option.value = JSON.stringify(element);
         option.innerText = element[property];
-        if (selectedValue == element[property]) {
+        if (selectedValue === element[property]) {
+            option.selected = 'selected';
+        }
+        fieldId.appendChild(option);
+    })
+
+}
+
+// define function for fill data into select element
+const fillDataIntoSelectTwo = (fieldId,message, dataList, property,propertyTwo, selectedValue)=>{
+    fieldId.innerHTML = '';
+    if (message !== "") {
+
+        let optionMsg = document.createElement('option');
+        optionMsg.value = ""
+        optionMsg.innerText = message;
+        optionMsg.selected = 'selected';
+        optionMsg.disabled = 'disabled';
+        fieldId.appendChild(optionMsg)
+    }
+   
+    
+    dataList.forEach(element => {
+        let option = document.createElement('option');
+        option.value = JSON.stringify(element);
+        option.innerText = element[property] + ': ' + element[propertyTwo];
+        if (selectedValue === element[property]) {
             option.selected = 'selected';
         }
         fieldId.appendChild(option);

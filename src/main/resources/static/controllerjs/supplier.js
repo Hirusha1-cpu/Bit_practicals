@@ -2,53 +2,82 @@
 window.addEventListener('load', () => {
 
     //call table refresh function
-    refreshEmployeeTable();
+    refreshSupplierTable();
 
     //call form refreash function
-    // refreshEmployeeForm()
+    refreshSupplierForm()
 })
-let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/EMPLOYEE")
+let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/Supplier")
+
+
+//create function for refreashForm area
+const refreshSupplierForm = () => {
+    //create empty object
+    supplier = {};
+    oldSupplier = null;
+
+    supplier.items = [];
+
+
+    let supplierStatusList = ajaxGetRequest('/supplierstatus/findall')
+    fillDataIntoSelect(selectSupplierStatus, 'Select Supplier Status', supplierStatusList, 'name')
+
+    //left side
+    // Empstatuses = [{ id: 1, name: 'Working ' }, { id: 2, name: 'Resign' }, { id: 3, name: 'Deleted' }]
+    availableItemList = ajaxGetRequest('/item/availablelist')
+    fillDataIntoSelectTwo(selectAllItem, "", availableItemList, 'itemcode', 'itemname')
+    //right side
+    fillDataIntoSelectTwo(selectedItem, "", supplier.items, 'itemcode', 'itemname')
+
+    btnSupUpd.disabled = true;
+    // btnEmpUpd.style.cursor = "not-allowed";
+    $("btnEmpUpd").css("cursor", "not-allowed");
+    if (userPrivilege.insert) {
+        btnSupAdd.disabled = false
+        $("btnSupAdd").css("cursor", "pointer");
+    } else {
+
+        btnSupAdd.disabled = true
+        $("btnSupAdd").css("cursor", "not-allowed");
+    }
+}
 
 //create function for refreash table record
-const refreshEmployeeTable = () => {
+const refreshSupplierTable = () => {
+    //create array for store employee data list5
 
-    employees = ajaxGetRequest('/employee/findall')
+    suppliers = ajaxGetRequest('/supplier/findall')
 
 
     const displayProperty = [
-        { property: 'empno', dataType: 'string' },
-        { property: 'fullname', dataType: 'string' },
-        { property: 'nic', dataType: 'string' },
-        { property: 'mobile', dataType: 'string' },
-        { property: 'email', dataType: 'string' },
-        // { property: 'dob', dataType: 'string' },
-        // {property:'employeeStatus_id.name',dataType:'object'},
-        { property: getEmployeeStatus, dataType: 'function' },
-        { property: getEmpDesign, dataType: 'function' },
-        { property: getHasUserAccount, dataType: 'function' },
-        // { property: "hasUserAccount", dataType: 'boolean' },
+        { property: 'regno', dataType: 'string' },
+        { property: 'suppliername', dataType: 'string' },
+        { property: 'brn', dataType: 'string' },
+
+        { property: getSupplyItems, dataType: 'function' },
+        { property: getSupplyStatus, dataType: 'function' },
 
     ]
 
     //call fill data into table function
     // fillDataIntoTable(tableId,dataList, display property List, refillFunctionName, deleteFunctionName, printFunctionName,buttonVisibility)
-    fillDataIntoTable(tableEmployee, employees, displayProperty, refillEmployeeForm,
-         deleteButtonFunction, printEmployee, true, userPrivilege)
+    fillDataIntoTable(tableSupplier, suppliers, displayProperty, refillSupplierForm,
+        deleteButtonFunction, printSupplier, true, userPrivilege)
 
-         //disable delete button
-         employees.forEach((element,index) => {
-            if (element.employeestatus_id.name == "Deleted") {
-                if (userPrivilege.delete) {
-                    tableEmployee.children[1].children[index].children[9].children[1].disabled = "disabled";
-                    
-                }
-                
+    //disable delete button
+    suppliers.forEach((element, index) => {
+        if (element.supplierstatus_id.name == "Deleted") {
+            if (userPrivilege.delete) {
+                tableSupplier.children[1].children[index].children[6].children[1].disabled = "disabled";
+
             }
-        });
+
+        }
+    });
 
     // Initialize DataTables on the tableEmployee
     $(document).ready(function () {
-        $('#tableEmployee').DataTable({
+        $('#tableSupplier').DataTable({
             paging: true, // Enable pagination
             searching: true, // Enable search
         });
@@ -58,171 +87,53 @@ const refreshEmployeeTable = () => {
 
 }
 
-const getEmployeeStatus = (rowOb) => {
-
-    if (rowOb.employeestatus_id.name == 'Working') {
-
-        return '<p class="working-status">' + rowOb.employeestatus_id.name + '</p>';
+const getSupplyStatus = (rowOb) =>{
+    if (rowOb.supplierstatus_id.name == "Active") {
+        return '<p class="working-status">'+ rowOb.supplierstatus_id.name+'</p>';
     }
-    if (rowOb.employeestatus_id.name == 'Resign') {
-
-        return '<p class="resign-status">' + rowOb.employeestatus_id.name + '</p>';
+    if (rowOb.supplierstatus_id.name == "In-Active") {
+        return '<p class="resign-status">'+ rowOb.supplierstatus_id.name+'</p>';
     }
-    if (rowOb.employeestatus_id.name == 'Deleted') {
-
-        return '<p class="deleted-status">' + rowOb.employeestatus_id.name + '</p>';
+    if (rowOb.supplierstatus_id.name == "Active") {
+        return '<p class="deleted-status">'+ rowOb.supplierstatus_id.name+'</p>';
     }
 }
 
-//create function for refreashForm area
-const refreshEmployeeForm = () => {
-    //create empty object
-    employee = {};
-    // get data list for select element
-    // designations = [
-    //     { id: 1, name: "Manager" },
-    //     { id: 2, name: "Cashier" },
-    //     { id: 3, name: "Store-Manager" },
-    // ]
-    designations = ajaxGetRequest('/designation/findall')
-    fillDataIntoSelect(selectDesignation, 'Select Designation', designations, 'name')
-
-    // Empstatuses = [{ id: 1, name: 'Working ' }, { id: 2, name: 'Resign' }, { id: 3, name: 'Deleted' }]
-    Empstatuses = ajaxGetRequest('/empstatus/findall')
-    fillDataIntoSelect(selectEStatus, "Select Emp Status", Empstatuses, 'name')
-
-    selCivil = [{ id: 1, name: 'Married' }, { id: 2, name: 'Single' }]
-    fillDataIntoSelect(selectStatus, "Select Status", selCivil, 'name')
-
-
-    //need to empty all element
-    // inputNIC.value = '';
-    // inputDob.value = '';
-    // selectStatus.value = ''
-
-
-    //set min value
-    //min = current date newDate()
-    //max = current date + 14 days
-    inputDob.min = '2023-09-01';
-    inputDob.max = '2023-09-30';
-
-    //need to set default color
-    inputNIC.classList.remove("is-valid");
-    inputNIC.style.border = '1px solid #ced4da'
-    inputDob.classList.remove("is-valid");
-    inputDob.style.border = '1px solid #ced4da'
-
-    let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/Employee")
-    console.log(userPrivilege);
-
-    btnEmpUpd.disabled = true;
-    // btnEmpUpd.style.cursor = "not-allowed";
-    $("btnEmpUpd").css("cursor","not-allowed");
-    if (userPrivilege.insert) {
-        btnEmpAdd.disabled = false
-        $("btnEmpAdd").css("cursor","pointer");
-    }else{
-
-        btnEmpAdd.disabled = true
-        $("btnEmpAdd").css("cursor","not-allowed");
-    }
+const getSupplyItems = (ob) =>{
+    return "ItemName"
 }
 
-const getEmpDesign = (rowOb) => {
-    if (rowOb.designation_id.name == 'Manager') {
-        return '<p class="working-status">' + rowOb.designation_id.name + '</p>';
-    }
-    if (rowOb.designation_id.name == 'Store-Manager') {
-        return '<p class="resign-status">' + rowOb.designation_id.name + '</p>';
-    }
-    if (rowOb.designation_id.name == 'Cashier') {
-        return '<p class="deleted-status">' + rowOb.designation_id.name + '</p>';
-    }
-}
-
-
-const getHasUserAccount = (rowOb) => {
-    console.log(rowOb);
-    hasUserAccount = ajaxGetRequest("/employee/listwithoutuseraccount")
-    console.log("hasUserAccount names=======>", hasUserAccount);
-    console.log("rowOb", rowOb);
-    for (let element of hasUserAccount) {
-        console.log(element.fullname);
-        
-        if (element.fullname === rowOb.fullname) {
-            return '<p class="working-status">' + 'yes' + '</p>';
-        }
-     
-    }
+const printSupplier = ()=>{
 
 }
+
 
 const deleteButtonFunction = (rowOb, rowindex) => {
-    setTimeout(function(){
+    setTimeout(function () {
 
         const userConfirm = confirm('Are you sure you want to delete' + rowOb.fullname);
         if (userConfirm) {
             // employees[rowindex].employeeStatus_id = {id:3, name:'Delete'};
-    
+
             let serverResponse = ajaxRequestBodyMethod("/employee", "DELETE", rowOb)
             if (serverResponse == "OK") {
                 alert("Delete successfully...!")
                 refreshEmployeeTable();
                 formEmployee.reset();
                 refreshEmployeeForm();
-    
-    
+
+
             } else {
                 alert("Delete not succefully  .." + serverResponse)
             }
-    
+
             // alert('Employee delete succefully');
             // refreshEmployeeTable()
-    
+
         }
-    },500)
+    }, 500)
 }
 
-//function of generate calling name values
-const generateCallingNameValues = () => {
-    const callingnames = document.querySelector('#dtaList');
-    callingnames.innerHTML = '';
-
-    callingNamePartList = inputFullName1.value.split(' ');
-    console.log(callingNamePartList);
-    callingNamePartList.forEach(item => {
-        const option = document.createElement('option');
-        option.value = item;
-
-        callingnames.appendChild(option);
-    })
-}
-
-//create function for validate calling name
-const txtCallingNameValidator = (feild) => {
-    const callingNameValue = feild.value;
-    console.log(callingNamePartList);
-    let cnameExt = false;
-    for (let element of callingNamePartList) {
-        if (element == callingNameValue) {
-            cnameExt = true;
-            break;
-        }
-    };
-    // let exInddex = callingNamePartList.map(cname => cname).indexOf(callingNameValue);
-
-
-    if (cnameExt) {
-        //valid
-        feild.style.border = '2px solid green'
-        employee.callingname = "callingNameValue"
-    } else {
-        //invalid
-        feild.style.border = '2px solid red'
-        employee.callingname = "null"
-    }
-}
 
 //create function for check form error
 //need to check all required property values
@@ -268,8 +179,8 @@ const checkError = () => {
 }
 
 //create function for add button
-const buttonEmpAdd = () => {
-    // console.log("hi");
+const buttonSupplierAdd = () => {
+    console.log("hi supplier");
     //1.need to check form error ---> checkError()
     let formErrors = checkError()
     if (formErrors == "") {
@@ -289,21 +200,7 @@ const buttonEmpAdd = () => {
             //3.pass data into backend
             //call ajaxRequestBodyMethod function
             let serverResponse = ajaxRequestBodyMethod("/employee", "POST", employee);
-            // $.ajax('/employee',{
-            //     async: false,
-            //     type: "POST",
-            //     data:JSON.stringify(employee),
-            //     contentType:'application/json',
-            //     success:function(data, status, ahr){
-            //         console.log("success"+status + " " + ahr);
-            //         serverResponse =data;
-            //     },
-            //     error:function(ahr, status, errormsg){
-            //         console.log("Fail"+ errormsg+" "+ status);
-            //         serverResponse = errormsg;
-            //     }
-            // })
-            //4.check backend response
+
             if (new RegExp('^[0-9]{8}$').test(serverResponse)) {
                 alert("Save successfully...!" + serverResponse)
                 refreshEmployeeTable();
@@ -322,69 +219,55 @@ const buttonEmpAdd = () => {
     }
 }
 
-const refillEmployeeForm = (item, index) => {
+const refillSupplierForm = (item, index) => {
     $('#empForm').modal('show');
 
     // employee = employees[rowindex]; // No 'let' declaration, directly update the outer 'employee'
-    employee = JSON.parse(JSON.stringify(item));
+    supplier = JSON.parse(JSON.stringify(item));
     // employee = ajaxGetRequest("employee/byid/"+item.id)
     // employee = ajaxGetRequest("employee/byid?id"+item.id+"&name="+employee.name)
-    oldemployee = JSON.parse(JSON.stringify(item));
+    oldSupplier = JSON.parse(JSON.stringify(item));
 
-    console.log(employee);
+ 
+    inputSupplierName.value = supplier.suppliername;
+    let supplierStatusList = ajaxGetRequest('/supplierstatus/findall')
+    fillDataIntoSelect(selectSupplierStatus, 'Select Supplier Status', supplierStatusList, 'name', supplier.supplierstatus_id.name)
+
+    //left side
+    // Empstatuses = [{ id: 1, name: 'Working ' }, { id: 2, name: 'Resign' }, { id: 3, name: 'Deleted' }]
+    availableItemList = ajaxGetRequest('/item/availablelistwithoutsupplier/'+supplier.id)
+    fillDataIntoSelectTwo(selectAllItem, "", availableItemList, 'itemcode', 'itemname')
+    //right side
+    fillDataIntoSelectTwo(selectedItem, "", supplier.items, 'itemcode', 'itemname')
 
 
-    inputFullName1.value = employee.fullname
-    inputCallingName.value = employee.callingname
-    inputNIC.value = employee.nic
-    inputDob.value = employee.dateofbirth
-    inputMobNo.value = employee.mobile
-    inputEmail.value = employee.email
-    inputAddress.value = employee.address
-    selectStatus.value = employee.civilstatus
+    inputSupplierName.style.border = '1px solid green'
+    selectSupplierStatus.style.border = '1px solid green'
 
-    if (employee.landno != null) {
-        inputLand.value = employee.landno
-    } else {
-        inputLand.value = ""
-    }
-
-    if(employee.gender == "Male"){
-        flexRadioMale.checked = true;
-    }else{
-        flexRadioFemale.checked = true;
-
-    }
-    //select designation
-    fillDataIntoSelect(selectDesignation, "Select Designation", designations, 'name',employee.designation_id.name)
-
-    //select emp status
-    fillDataIntoSelect(selectEStatus, "Select Status", Empstatuses, 'name',employee.employeestatus_id.name)
-
-    btnEmpUpd.disabled = "";
+    btnSupUpd.disabled = "";
     // btnEmpUpd.style.cursor = "not-allowed";
-    $("btnEmpUpd").css("cursor","pointer");
-    btnEmpAdd.disabled = true;
-    $("btnEmpAdd").css("cursor","not-allowed");
+    $("btnSupUpd").css("cursor", "pointer");
+    btnSupAdd.disabled = true;
+    $("btnSupAdd").css("cursor", "not-allowed");
 
-    let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/Employee")
+    let userPrivilege = ajaxGetRequest("/privilege/bylogedusermodule/Supplier")
     if (userPrivilege.update) {
-        btnEmpUpd.disabled = "";
-        $("btnEmpUpd").css("cursor","pointer");
-    }else{
+        btnSupUpd.disabled = "";
+        $("btnSupUpd").css("cursor", "pointer");
+    } else {
         btnEmpUpd.disabled = "disabled";
-        $("btnEmpUpd").css("cursor","not-allowed");
+        $("btnSupUpd").css("cursor", "not-allowed");
     }
 
 }
 //define method for check updates
-const checkUpdate =()=>{
+const checkUpdate = () => {
     let updates = "";
     if (employee.nic != oldemployee.nic) {
         updates = updates + "NIC is changed"
     }
     if (employee.mobile != oldemployee.mobile) {
-        updates = updates + "mobile is changed into"+ employee.mobile
+        updates = updates + "mobile is changed into" + employee.mobile
     }
     if (employee.designation_id.name != oldemployee.designation_id.name) {
         updates = updates + "designation is changed"
@@ -398,54 +281,123 @@ const checkUpdate =()=>{
 }
 
 //define function for employee update
-const buttonEmpUpdate =()=>{
+const buttonEmpUpdate = () => {
     //check error
     let error = checkError();
-    if(error == ""){
+    if (error == "") {
         //check form update
         let updates = checkUpdate();
-        if(updates != ""){
+        if (updates != "") {
             //call put service
-            let userConfirmation = confirm("are u sure to update following changes...?"+updates)
+            let userConfirmation = confirm("are u sure to update following changes...?" + updates)
             if (userConfirmation) {
                 let updateServiceResponse = ajaxRequestBodyMethod("/employee", "PUT", employee)
                 //check backend response
-            if (updateServiceResponse =="OK") {
-                alert("Update successfully...!" )
-                refreshEmployeeTable();
-                formEmployee.reset();
-                refreshEmployeeForm();
-                //need hide modal
-                $('#empForm').modal('hide');
+                if (updateServiceResponse == "OK") {
+                    alert("Update successfully...!")
+                    refreshEmployeeTable();
+                    formEmployee.reset();
+                    refreshEmployeeForm();
+                    //need hide modal
+                    $('#empForm').modal('hide');
 
-            } else {
-                alert("Update not succefully  .." + updateServiceResponse)
-            }
+                } else {
+                    alert("Update not succefully  .." + updateServiceResponse)
+                }
 
             }
-        }else{
+        } else {
             alert("Form has no any changes");
         }
 
-    }else{
-        alert("Form has following errors \n"+ error)
+    } else {
+        alert("Form has following errors \n" + error)
     }
 }
 
 
+//add selected item
+const btnAddOneItem = () => {
+    console.log(selectAllItem.value);
+    if (selectAllItem.value == "") {
+        alert("Please select item")
+    } else {
 
-const printEmployee = (rowindex) => {
-    newwindow = window.open()
+        let selectedItem1 = JSON.parse(selectAllItem.value)
+        supplier.items.push(selectedItem1);
+        console.log(supplier.items);
+        console.log(availableItemList);
+        fillDataIntoSelectTwo(selectedItem, "", supplier.items, 'itemcode', 'itemname')
+        // fillDataIntoSelectTwo(selectAllItem, "", availableItemList,'itemcode', 'itemname')
+        // fillDataIntoSelect(selectedItem, "", supplier.items, 'itemname')
 
-    newwindow.document.write(
-        "<head>"+
-        "<link rel='stylesheet' href='resourcesT/bootstrap-5.2.3/css/bootstrap.min.css'></head><body>"
-        +
-        tableEmployee.outerHTML +
-        "</body>"
-    )
-    setTimeout(function(){
-        newwindow.print();
-    },1000)
+        let extIndex = availableItemList.map(item => item.itemname).indexOf(selectedItem1.itemname)
+        if (extIndex != -1) {
+            //exist index eke idan 1k remove krnna
+            availableItemList.splice(extIndex, 1);
+        }
+        fillDataIntoSelectTwo(selectAllItem, "", availableItemList, 'itemcode', 'itemname')
+        // fillDataIntoSelect(selectAllItem, "", availableItemList,'itemname')
+    }
+
+
 
 }
+
+
+function btnAddAllItem() {
+
+    availableItemList.forEach(item => {
+
+        supplier.items.push(item);
+    });
+
+    fillDataIntoSelectTwo(selectedItem, "", supplier.items, 'itemcode', 'itemname')
+    availableItemList = []
+    fillDataIntoSelectTwo(selectAllItem, "", availableItemList, 'itemcode', 'itemname')
+
+}
+function removeAddOneItem() {
+    if (selectedItem.value == "") {
+        alert("Please select item for remove")
+    } else {
+
+        console.log(selectAllItem.value);
+
+        let selectedRemoveItem = JSON.parse(selectedItem.value)
+        availableItemList.push(selectedRemoveItem);
+        console.log(selectedRemoveItem);
+        fillDataIntoSelectTwo(selectAllItem, "", availableItemList, 'itemcode', 'itemname')
+
+
+        let extIndex = supplier.items.map(item => item.itemname).indexOf(selectedRemoveItem.itemname)
+        if (extIndex != -1) {
+            //exist index eke idan 1k remove krnna
+            supplier.items.splice(extIndex, 1);
+        }
+        fillDataIntoSelectTwo(selectedItem, "", supplier.items, 'itemcode', 'itemname')
+    }
+
+}
+function removeAddAllItem() {
+    supplier.items.forEach(item => {
+
+        availableItemList.push(item);
+    });
+
+    fillDataIntoSelectTwo(selectAllItem, "", availableItemList, 'itemcode', 'itemname')
+    supplier.items = []
+    fillDataIntoSelectTwo(selectedItem, "", supplier.items, 'itemcode', 'itemname')
+
+}
+
+
+
+
+
+
+
+
+
+
+

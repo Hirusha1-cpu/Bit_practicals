@@ -62,13 +62,13 @@
                                         <div class="mb-3 row " style="height: 40px;">
                                             <div class="col-6">
                                                 <div class="row">
-                                                    <label for="inputFullName1"
+                                                    <label for="inputSupplierName"
                                                         class="col-lg-2 col-form-label fs-5 fw-bold">Supplier-name
                                                         </label>
                                                     <div class="col-lg-10 ">
                                                         <input type="text" class="form-control form-control-lg "
-                                                            placeholder="Enter Full Name" id="inputFullName1" required
-                                                            onkeyup="textValidation(inputFullName1, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'supplier', 'suppliername')">
+                                                            placeholder="Enter Full Supplier Name" id="inputSupplierName" required
+                                                            onkeyup="textValidation(inputSupplierName, '^([A-Z][a-z]{2,30}[\\s])+([A-Z][a-z]{2,30}){1}$', 'supplier', 'suppliername','oldSupplier')">
     
     
                                                     </div>
@@ -77,17 +77,14 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="row">
-                                                    <label for="inputDesignation"
-                                                        class="col-sm-2 col-form-label fs-5 fw-bold">EmpStatus</label>
+                                                    <label for="selectSupplierStatus"
+                                                        class="col-sm-2 col-form-label fs-5 fw-bold">Supplier Status</label>
                                                     <div class="col-3">
 
                                                         <select class="form-select form-select-lg"
-                                                            aria-label="Default select example" id="selectEStatus"
-                                                            onchange="selectDFieldValidation(selectSupplierStatus,'', 'supplier', 'supplierstatus_id')">
-                                                            <option selected>Select Employee Status</option>
-                                                            <option value="1">One</option>
-                                                            <option value="2">Two</option>
-                                                            <option value="3">Three</option>
+                                                            aria-label="Default select example" id="selectSupplierStatus"
+                                                            onchange="selectDFieldValidation(selectSupplierStatus,'', 'supplier', 'supplierstatus_id','oldSupplier')">
+                                                           
                                                         </select>
                                                     </div>
 
@@ -103,21 +100,27 @@
                                     <div class="row">
                                         <!-- alling name start -->
                                         <div class="col-5">
-                                            <select name="" multiple class="form-select" id="selectAllItem">
-                                                <option value="">Select Item</option>
+                                            <label for="" class="fw-bold">All Item</label>
+                                            <select  multiple class="form-select" id="selectAllItem">
+                                                
                                             </select>
 
                                         </div>
                                         <!-- alling name end -->
                                         <!-- buttons start -->
                                         <div class="col-2">
+                                            <button type="button" class="btn btn-light" onclick="btnAddOneItem()"> > </button> <br>
+                                            <button type="button" class="btn btn-light"onclick="btnAddAllItem()" > >> </button> <br>
+                                            <button type="button" class="btn btn-light" onclick="removeAddOneItem()" > < </button> <br>
+                                            <button type="button" class="btn btn-light" onclick="removeAddAllItem()"> << </button>
 
                                         </div>
                                         <!-- buttons end -->
                                         <!-- selected item start -->
                                         <div class="col-5">
-                                            <select name="" multiple class="form-select" id="selectAllItem">
-                                                <option value="">Selected</option>
+                                            <label for="" class="fw-bold">Selected Item</label>
+                                            <select  multiple class="form-select" id="selectedItem">
+                                         
                                             </select>
 
                                         </div>
@@ -133,11 +136,11 @@
                                                     class="fa-solid fa-broom"></i>Clear</button>
                                         </div>
                                         <div class="col" style="display: flex; justify-content: flex-end;gap:10px">
-                                            <button id="btnEmpUpd" type="button" class="btn btn-lg btn-warning"
-                                                style="border-radius: 30px;" onclick="buttonEmpUpdate()"><i
+                                            <button id="btnSupUpd" type="button" class="btn btn-lg btn-warning"
+                                                style="border-radius: 30px;" onclick="buttonSupplierUpdate()"><i
                                                     class="fa-solid fa-pen-to-square"></i>Update</button>
-                                            <button id="btnEmpAdd" type="button" class="btn btn-lg btn-success"
-                                                style="border-radius: 30px;" onclick="buttonEmpAdd()"><i
+                                            <button id="btnSupAdd" type="button" class="btn btn-lg btn-success"
+                                                style="border-radius: 30px;" onclick="buttonSupplierAdd()"><i
                                                     class="fa-solid fa-plus"></i>Add</button>
                                         </div>
                                     </div>
@@ -158,14 +161,12 @@
                 <table class="table table-bordered mt-3" id="tableSupplier">
                     <thead class="table-dark">
                         <th>#</th>
-                        <th>Number</th>
-                        <th>Full Name</th>
-                        <th>NIC</th>
-                        <th>Mobile</th>
-                        <th>Email</th>
+                        <th>RegNo</th>
+                        <th>Supplier Name</th>
+                        <th>BRN</th>
+                        <th>Items</th>
+                     
                         <th>Status</th>
-                        <th>Designation</th>
-                        <th>Use Account</th>
                         <th>Button</th>
                     </thead>
                     <tbody>
