@@ -49,6 +49,7 @@ public class WebConfiguration {
                     .requestMatchers("/supplier/**").hasAnyAuthority("Admin", "Manager")
                     .requestMatchers("/user").hasAnyAuthority("Admin", "Manager")
                     .requestMatchers("/item/**").hasAnyAuthority("Admin", "Manager", "Cashier", "Store-Manager")
+                    .requestMatchers("/purchase/**").hasAnyAuthority("Admin", "Manager", "Store-Manager")
                     .anyRequest().authenticated();
         })
                 // login form detail

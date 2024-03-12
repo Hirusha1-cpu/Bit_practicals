@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import java.math.*;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "purchaseorder_has_item")
 @Data
@@ -36,6 +38,7 @@ public class PurchaseOrderHasItem {
 
     @ManyToOne
     @JoinColumn(name ="purchaseorder_id", referencedColumnName="id")
+    @JsonIgnore
     private PurchaseOrder purchaseorder_id;
 
     @ManyToOne
