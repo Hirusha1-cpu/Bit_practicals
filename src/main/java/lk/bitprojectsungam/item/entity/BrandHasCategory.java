@@ -6,7 +6,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BrandHasCategory {
     @Id
- @ManyToOne // relationship format
+    @ManyToOne // relationship format
     @JoinColumn(name = "brand_id", referencedColumnName = "id") //join column condition
     private Category brand_id ;
 

@@ -49,4 +49,10 @@ public class Supplier {
     @ManyToMany
     @JoinTable(name = "supplier_has_item", joinColumns = @JoinColumn(name = "supplier_id"),inverseJoinColumns = @JoinColumn(name="item_id"))
     private Set<Item> items;
+
+    public Supplier(Integer id, String suppliername){
+        this.id = id;
+        this.suppliername = suppliername;
+    }
 }   
+

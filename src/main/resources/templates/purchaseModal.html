@@ -5,10 +5,6 @@
 
 </head>
 
-<head th:replace="~{ head :: headEmpFragment}">
-
-</head>
-
 <head th:replace="~{ head :: headPurchaseFragment}">
 
 </head>
@@ -91,7 +87,7 @@
                                                 <div class="row mt-2">
                                                     <div class="col-5">
                                                         <div class="row mt-2">
-                                                            <label for="inputCallingName"
+                                                            <label for="selectSupplierlist"
                                                                 class="col-sm-2 col-form-label fs-5 fw-bold">
                                                                 Supplier<span style="color: red;">*</span>
 
@@ -99,14 +95,14 @@
                                                             <div class="col-lg-10">
                                                                 <select class="form-select form-select-lg"
                                                                     aria-label="Default select example"
-                                                                    id="selectSupplier"
-                                                                    onchange="selectDFieldValidation(selectSupplier,'', 'employee', 'civilstatus','oldemployee')">
+                                                                    id="selectSupplierlist"
+                                                                    onchange="selectDFieldValidation(selectSupplierlist,'', 'porder', 'supplier_id','oldOrder')">
 
                                                                 </select>
                                                             </div>
 
 
-                                                            <label for="inputCallingName"
+                                                            <label for="inputDateRequired"
                                                                 class="col-sm-2 col-form-label fs-5 fw-bold">
                                                                 Required Date<span style="color: red;">*</span>
 
@@ -114,37 +110,38 @@
                                                             <div class="col-lg-10">
                                                                 <input type="date" class="form-control form-control-lg"
                                                                     id="inputDateRequired" required
-                                                                    onchange="dateFieldValidation(inputDob,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dateofbirth');">
+                                                                    onchange="dateFieldValidation(inputDateRequired,'','porder','requireddate','oldOrder');">
                                                             </div>
 
 
-                                                            <label for="inputCallingName"
+                                                            <label for="inputTotalAmount"
                                                                 class="col-sm-2 col-form-label fs-5 fw-bold">
                                                                 Total Amount(Rs)<span style="color: red;">*</span>
 
                                                             </label>
                                                             <div class="col-lg-10">
                                                                 <input type="text" class="form-control form-control-lg"
-                                                                    id="inputDateRequired" required
+                                                                    id="inputTotalAmount" required
                                                                     placeholder="enter total price"
-                                                                    onchange="dateFieldValidation(inputDob,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dateofbirth');">
+                                                                    onkeyup="textValidation(inputTotalAmount,'','porder','totalamount','oldOrder');">
                                                             </div>
 
 
-                                                            <label for="inputCallingName"
+                                                            <label for="inputNote"
                                                                 class="col-sm-2 col-form-label fs-5 fw-bold">
                                                                 Note
 
                                                             </label>
                                                             <div class="col-lg-10">
                                                                 <textarea class="form-control"
-                                                                    aria-label="With textarea">
+                                                                    aria-label="With textarea" id="inputNote"
+                                                                    onkeyup="textValidation(inputNote,'','porder','note','oldOrder');">
 
                                                                 </textarea>
                                                             </div>
 
 
-                                                            <label for="inputCallingName"
+                                                            <label for="selectPOrderStatus"
                                                                 class="col-sm-2 col-form-label fs-5 fw-bold">
                                                                 Status<span style="color: red;">*</span>
 
@@ -152,8 +149,8 @@
                                                             <div class="col-lg-10">
                                                                 <select class="form-select form-select-lg"
                                                                     aria-label="Default select example"
-                                                                    id="selectStatus"
-                                                                    onchange="selectFieldValidation(selectStatus,'', 'employee', 'civilstatus','oldemployee')">
+                                                                    id="selectPOrderStatus"
+                                                                    onchange="selectFieldValidation(selectPOrderStatus,'', 'porder', 'porderstatus_id','oldemployee')">
 
                                                                 </select>
                                                             </div>
@@ -167,7 +164,7 @@
                                                             <div class="col-12">
                                                                 <div class="row mt-2">
                                                                     <div class="col-7">
-                                                                        <label for="inputCallingName"
+                                                                        <label for="selectItem"
                                                                             class="col-sm-2 col-form-label fs-5 fw-bold">
                                                                             Item<span style="color: red;">*</span>
 
@@ -176,13 +173,13 @@
                                                                             <select class="form-select form-select-lg"
                                                                                 aria-label="Default select example"
                                                                                 id="selectItem"
-                                                                                onchange="selectDFieldValidation(selectItem,'', 'employee', 'civilstatus','oldemployee')">
+                                                                                onchange="selectDFieldValidation(selectItem,'', 'porderItem', 'item_id','oldPorderItem'); generateUnitPrice()">
 
                                                                             </select>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-5">
-                                                                        <label for="inputCallingName"
+                                                                        <label for="inputUnitPrice"
                                                                             class="col-sm-2 col-form-label fs-5 fw-bold">
                                                                             UnitPrice(Rs)<span
                                                                                 style="color: red;">*</span>
@@ -191,9 +188,9 @@
                                                                         <div class="col-lg-10">
                                                                             <input type="text"
                                                                                 class="form-control form-control-lg"
-                                                                                id="inputDateRequired" required
-                                                                                placeholder="enter item price"
-                                                                                onchange="dateFieldValidation(inputDob,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dateofbirth');">
+                                                                                id="inputUnitPrice" required
+                                                                                placeholder="enter Unit price"
+                                                                                onkeyup="textValidation(this,'^[1-9][0-9]{0,7}[.][0-9]{2}$','porderItem','purchaseprice','oldPorderItem'); generateUp()">
                                                                         </div>
 
                                                                     </div>
@@ -201,7 +198,7 @@
                                                                 <div class="row mt-2">
 
                                                                     <div class="col-6">
-                                                                        <label for="inputCallingName"
+                                                                        <label for="inputQuantity"
                                                                             class="col-sm-2 col-form-label fs-5 fw-bold">
                                                                             Quantity<span style="color: red;">*</span>
 
@@ -209,13 +206,13 @@
                                                                         <div class="col-lg-10">
                                                                             <input type="text"
                                                                                 class="form-control form-control-lg"
-                                                                                id="inputDateRequired" required
+                                                                                id="inputQuantity" required
                                                                                 placeholder="enter qty"
-                                                                                onchange="dateFieldValidation(inputDob,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dateofbirth');">
+                                                                                onchange="textValidation(inputQuantity,'^[1-9][0-9]{0,3}$','porderItem','orderedqty','oldPorderItem'); calculateLinePrice(); ">
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-6">
-                                                                        <label for="inputCallingName"
+                                                                        <label for="inputLinePrice"
                                                                             class="col-sm-2 col-form-label fs-5 fw-bold">
                                                                             LinePrice<span style="color: red;">*</span>
 
@@ -223,9 +220,9 @@
                                                                         <div class="col-lg-10">
                                                                             <input type="text"
                                                                                 class="form-control form-control-lg"
-                                                                                id="inputDateRequired" required
+                                                                                id="inputLinePrice" required
                                                                                 placeholder="enter line price"
-                                                                                onchange="dateFieldValidation(inputDob,'^[0-9]{4}[-][0-9]{2}[-][0-9]{2}$','employee','dateofbirth');">
+                                                                                onkeyup="textValidation(inputLinePrice,'','porderItem','lineprice','oldPorderItem');">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -241,15 +238,15 @@
                                                                 </div>
                                                                 <div class="col"
                                                                     style="display: flex; justify-content: flex-end;gap:10px">
-                                                                    <button id="btnEmpUpd" type="button"
+                                                                    <button id="btnUploadInnerItem" type="button"
                                                                         class="btn btn-lg btn-warning"
                                                                         style="border-radius: 30px; pointers-events:all;"
                                                                         onclick="buttonEmpUpdate()"><i
                                                                             class="fa-solid fa-pen-to-square"></i>Update</button>
-                                                                    <button id="btnEmpAdd" type="button"
+                                                                    <button id="btnAddInnerItem" type="button"
                                                                         class="btn btn-lg btn-success"
                                                                         style="border-radius: 30px;"
-                                                                        onclick="buttonEmpAdd()"><i
+                                                                        onclick="buttonInnerItemAdd()"><i
                                                                             class="fa-solid fa-plus"></i>Add</button>
                                                                 </div>
                                                             </div>
@@ -284,14 +281,14 @@
                                                     </div>
                                                     <div class="col"
                                                         style="display: flex; justify-content: flex-end;gap:10px">
-                                                        <button id="btnEmpUpd" type="button"
+                                                        <button id="btnPorderUpd" type="button"
                                                             class="btn btn-lg btn-warning"
                                                             style="border-radius: 30px; pointers-events:all;"
-                                                            onclick="buttonEmpUpdate()"><i
+                                                            onclick="buttonPorderUpdate()"><i
                                                                 class="fa-solid fa-pen-to-square"></i>Update</button>
-                                                        <button id="btnEmpAdd" type="button"
+                                                        <button id="btnPorderAdd" type="button"
                                                             class="btn btn-lg btn-success" style="border-radius: 30px;"
-                                                            onclick="buttonEmpAdd()"><i
+                                                            onclick="buttonPorderAdd()"><i
                                                                 class="fa-solid fa-plus"></i>Add</button>
                                                     </div>
                                                 </div>

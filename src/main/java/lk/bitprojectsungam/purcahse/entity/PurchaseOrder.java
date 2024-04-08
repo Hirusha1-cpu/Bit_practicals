@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -65,7 +66,7 @@ public class PurchaseOrder {
     @JoinColumn(name ="supplier_id", referencedColumnName="id")
     private Supplier supplier_id;
 
-    @OneToMany(mappedBy = "purchaseorder_id")
+    @OneToMany(mappedBy = "purchaseorder_id", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PurchaseOrderHasItem> purchaseOrderHasItemList;
 
 

@@ -114,10 +114,11 @@ public class Item {
       
     }
 
-    public Item(Integer id,String itemcode,String itemname){
+    public Item(Integer id,String itemcode,String itemname, BigDecimal purchaseprice){
         this.id = id;
         this.itemcode = itemcode;
         this.itemname = itemname;
+        this.purchaseprice = purchaseprice;
    
       
     }

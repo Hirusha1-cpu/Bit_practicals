@@ -35,15 +35,16 @@ public class SupplierController {
         return viewEmp;
     }
 
-    @GetMapping(value = "/findall",produces = "application/json")
-  public List<Supplier> getAllData() {
+    @GetMapping(value = "/list",produces = "application/json")
+  public List<Supplier> getAllDataList() {
         // get user authentication object
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         HashMap<String, Boolean> logUserPrivi = privilegeController.getPrivilegeByUserModule(auth.getName(), "Supplier");
         if (!logUserPrivi.get("select")) {
             return null;
         }
-        return dao.findAll();
+        return dao.List();
+        // return dao.findAll();
     }
 
 

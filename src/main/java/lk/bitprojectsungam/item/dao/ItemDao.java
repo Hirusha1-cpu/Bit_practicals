@@ -13,10 +13,10 @@ public interface ItemDao extends JpaRepository<Item, Integer> {
     public List<Item> findAll();
     
     //define query for get item with selected column status active , 1
-    @Query(value="select new Item(i.id, i.itemcode, i.itemname) from Item i where i.itemstatus_id.id = 1")
+    @Query(value="select new Item(i.id, i.itemcode, i.itemname, i.purchaseprice) from Item i where i.itemstatus_id.id = 1")
     public List<Item> getAvailableItemList();
 
-    @Query(value="select new Item(i.id, i.itemcode, i.itemname) from Item i where i.itemstatus_id.id = 1 and i.id not in (select shi.item_id.id from SupplierHasItem shi where shi.supplier_id.id =?1)")
+    @Query(value="select new Item(i.id, i.itemcode, i.itemname ,i.purchaseprice) from Item i where i.itemstatus_id.id = 1 and i.id not in (select shi.item_id.id from SupplierHasItem shi where shi.supplier_id.id =?1)")
     public List<Item> getAvailableDataListWithoutSupplier(Integer supplierid);
 
     //get next item code

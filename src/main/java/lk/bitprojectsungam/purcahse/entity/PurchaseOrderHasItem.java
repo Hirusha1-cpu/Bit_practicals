@@ -2,12 +2,12 @@ package lk.bitprojectsungam.purcahse.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lk.bitprojectsungam.item.entity.Item;
-import lk.bitprojectsungam.supplier.entity.Supplier;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.*;
-import java.time.LocalDate;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,7 +22,6 @@ public class PurchaseOrderHasItem {
     @NotNull
     @Column(name = "id", unique = true)
     private Integer id;
-
 
     @Column(name = "purchaseprice")
     @NotNull
